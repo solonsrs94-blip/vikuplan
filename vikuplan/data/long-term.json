@@ -1,0 +1,153 @@
+{
+  "lastUpdated": "2026-03-22",
+  "profiles": {
+    "solon": {
+      "name": "Sólon Rúnar Sigurðsson",
+      "work": "Klettabær (vaktavinna)",
+      "workSchedule": "Kvöld- og næturvaktir, 14 daga hringur",
+      "study": "Master í fjármálum (1 áfangi) + CAN SLIM fjárfestingarrannsóknir",
+      "exerciseGoal": "2-4x/viku",
+      "exerciseOptions": ["Nautilus", "Hlaupabrétti heima"],
+      "interests": ["Golf (Keili)", "Námsrannsóknir", "Hitta vini"],
+      "socialGoal": "Hitta vini 1x á viku — gleymir þessu oft"
+    },
+    "hekla": {
+      "name": "Hekla Kristín Valsdóttir",
+      "work": "Advania (dagvinna)",
+      "workSchedule": "Mán–Fös, 8:00–16:00",
+      "exerciseGoal": "2-4x/viku",
+      "exerciseOptions": ["World Class (þarf fyrirfram skráningu í tíma)"],
+      "interests": ["Golf (Keili)"],
+      "socialGoal": ""
+    },
+    "vd": {
+      "name": "Viktría Dís Sólonsdóttir",
+      "born": "2024-08-10",
+      "daycare": "Dagmamma",
+      "daycareSchedule": {
+        "monThu": { "dropoff": "07:30", "pickup": "15:30" },
+        "fri": { "dropoff": "07:30", "pickup": "14:00" }
+      },
+      "activities": []
+    }
+  },
+  "shiftSchedule": {
+    "description": "14 daga hringur. Vika A er þung (39 klst), Vika B er létt (14 klst). Meðaltal 26,5 klst/viku.",
+    "weekA": {
+      "hours": 39,
+      "shifts": {
+        "mon": "FRÍ",
+        "tue": "Kvöld 16-23",
+        "wed": "FRÍ",
+        "thu": "FRÍ",
+        "fri": "Nætur 23-08",
+        "sat": "Kvöld 16-23 + Nætur 23-08 (16 klst)",
+        "sun": "Kvöld 16-23"
+      }
+    },
+    "weekB": {
+      "hours": 14,
+      "shifts": {
+        "mon": "Kvöld 16-23",
+        "tue": "FRÍ",
+        "wed": "FRÍ",
+        "thu": "Kvöld 16-23",
+        "fri": "FRÍ",
+        "sat": "FRÍ",
+        "sun": "FRÍ"
+      }
+    },
+    "weeks": {
+      "2026-W12": "A",
+      "2026-W13": "B",
+      "2026-W14": "A",
+      "2026-W15": "B",
+      "2026-W16": "A",
+      "2026-W17": "B",
+      "2026-W18": "A",
+      "2026-W19": "B",
+      "2026-W20": "A",
+      "2026-W21": "B",
+      "2026-W22": "A",
+      "2026-W23": "B",
+      "2026-W24": "A",
+      "2026-W25": "B",
+      "2026-W26": "A"
+    },
+    "notes": [
+      "Á Viku A frídögum (mán, mið, fim) er Sólon laus á daginn — þetta er námstími og ræktartími.",
+      "Sólon fer EKKI að sofa eftir næturvaktir — er vakandi en þreyttur.",
+      "Næturvakt fös: 23:00 fös → 08:00 lau. Lau Vika A: 16:00 lau → 08:00 sun (16 klst)."
+    ]
+  },
+  "events": [
+    {
+      "id": "ev-001",
+      "title": "Sumarbústadur — Munaðarnes",
+      "date": "2026-03-27",
+      "endDate": "2026-04-01",
+      "person": "fjölskyldan",
+      "category": "trip",
+      "notes": "Skarast við Viku A — spyrja hvort Sólon vinni eða taki frí"
+    },
+    {
+      "id": "ev-002",
+      "title": "Sumarbústadur — Úthlíð",
+      "date": "2026-04-22",
+      "endDate": "2026-04-26",
+      "person": "fjölskyldan",
+      "category": "trip",
+      "notes": ""
+    },
+    {
+      "id": "ev-003",
+      "title": "Sumarbústadur — Brekkurskógur",
+      "date": "2026-05-20",
+      "endDate": "2026-05-26",
+      "person": "fjölskyldan",
+      "category": "trip",
+      "notes": ""
+    },
+    {
+      "id": "ev-004",
+      "title": "Golftímabilið byrjar",
+      "date": "2026-05-15",
+      "endDate": "2026-09-30",
+      "person": "bæði",
+      "category": "activity",
+      "notes": "Golfklúbbur Keilis. Æfingarsvæði og golfhermir."
+    },
+    {
+      "id": "ev-005",
+      "title": "Ferð til Svíþjóðar (Sólon)",
+      "date": "2026-06-24",
+      "endDate": "2026-07-01",
+      "person": "solon",
+      "category": "trip",
+      "notes": "Hekla og Viktría heima. 8 dagar."
+    },
+    {
+      "id": "ev-006",
+      "title": "Ferð til Spánar (allir)",
+      "date": "2026-07-02",
+      "endDate": "2026-07-23",
+      "person": "fjölskyldan",
+      "category": "trip",
+      "notes": "Viktría kemur með. 3 vikur."
+    }
+  ],
+  "recurring": [
+    { "what": "VD dagmamma", "days": [1, 2, 3, 4, 5], "time": "07:30–15:30 (fös: 07:30–14:00)" },
+    { "what": "Hekla vinna", "days": [1, 2, 3, 4, 5], "time": "08:00–16:00" }
+  ],
+  "preferences": [
+    "Vikan skipulögð á sunnudagskvöldum, mán–sun uppsetning.",
+    "Skutl og sækja VD ákveðið í byrjun hverrar viku.",
+    "Hekla þarf að skrá sig í World Class tíma með fyrirvara.",
+    "Heimilisstörf ekki í vikuplan nema stór verkefni.",
+    "Kvöldmataráætlun ákveðin í hverri viku.",
+    "Ekki blanda skólanámi og CAN SLIM á sama degi — heilan dag í hvort.",
+    "Rækt/hlaupabrétti í lok námsdags, áður en VD er sótt.",
+    "Saman-tími: forðast 'glápa á sjónvarpið' — skipuleggja activities."
+  ]
+}

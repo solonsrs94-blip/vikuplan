@@ -1,0 +1,10 @@
+{
+  "name": "Vikuplan",
+  "short_name": "Vikuplan",
+  "description": "Vikulegt sambandsverkfæri fyrir Sólon og Heklu",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FAFBFC",
+  "theme_color": "#2563EB",
+  "icons": []
+}

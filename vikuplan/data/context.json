@@ -1,0 +1,98 @@
+{
+  "lastUpdated": "2026-03-22",
+  "insights": [
+    {
+      "id": "ins-001",
+      "weekGenerated": "2026-W12",
+      "type": "flag",
+      "person": "hekla",
+      "text": "Hekla er ein með VD ~30 klst yfir Viku A helgar (fös kvöld til sun morgunn + sun kvöld). Fylgjast með álagi.",
+      "resolved": false
+    },
+    {
+      "id": "ins-002",
+      "weekGenerated": "2026-W12",
+      "type": "nudge",
+      "person": "solon",
+      "text": "Sólon vill hitta vini en gleymir því oft. Minna á reglulega.",
+      "resolved": false
+    },
+    {
+      "id": "ins-003",
+      "weekGenerated": "2026-W12",
+      "type": "pattern",
+      "person": "hekla",
+      "text": "Hekla sagði 'enginn sérstakur ásetningur' í fyrstu viku. Ef þetta endurtekur sig, spyrja sérsniðnari spurninga.",
+      "resolved": false
+    },
+    {
+      "id": "ins-004",
+      "weekGenerated": "2026-W12",
+      "type": "nudge",
+      "person": "both",
+      "text": "Parið nefndi 'glápa á sjónvarpið' sem vanda. Stinga upp á einföldu saman-activity á einu kvöldi.",
+      "resolved": false
+    },
+    {
+      "id": "ins-005",
+      "weekGenerated": "2026-W12",
+      "type": "flag",
+      "person": "solon",
+      "text": "Námstími ~29 klst + 39 klst vinna á Viku A = 68 klst heildarálag. Gæti verið of mikið.",
+      "resolved": false
+    },
+    {
+      "id": "ins-006",
+      "weekGenerated": "2026-W12",
+      "type": "flag",
+      "person": "both",
+      "text": "Munaðarnesferð 27/3–1/4 skarast við Viku A. Er Sólon að vinna eða tekur frí?",
+      "resolved": false
+    }
+  ],
+  "trackers": {
+    "solon": {
+      "exercise": { "2026-W12": 3 },
+      "social": { "2026-W12": 1 },
+      "coupleTime": { "2026-W12": 3 }
+    },
+    "hekla": {
+      "exercise": { "2026-W12": 1 },
+      "social": { "2026-W12": 1 },
+      "coupleTime": { "2026-W12": 3 }
+    }
+  },
+  "moodHistory": {
+    "solon": {},
+    "hekla": {}
+  },
+  "flags": [
+    "Munaðarnesferð eftir 5 daga — þarf áætlun",
+    "Eigin tími Heklu er mun minni en Sólons"
+  ],
+  "weeklyLoadScores": {
+    "2026-W12": {
+      "solon": [2, 4, 2, 2, 5, 5, 4],
+      "hekla": [3, 3, 3, 3, 4, 5, 4]
+    }
+  },
+  "intentionCompletion": {
+    "solon": { "2026-W12": 0.6 },
+    "hekla": { "2026-W12": 0.4 }
+  },
+  "lastSocialActivity": {
+    "solon": "2026-03-19",
+    "hekla": "2026-03-16"
+  },
+  "streaks": {
+    "planningStreak": 1,
+    "checkinStreak": 0
+  },
+  "vikuord": {},
+  "togetherHours": {
+    "2026-W12": 20
+  },
+  "aiWeeklySummary": {
+    "2026-W12": "Fyrsta vikan skipulögð! Viku A er þung hjá Sóloni (68 klst álag með vinnu og námi). Hekla er ein með VD stóran hluta helgarinnar (~30 klst). Bæði nefndu að þau vilja hætta að glápa á sjónvarpið á kvöldin. Sólon vill hitta vini en hefur ekki gert áætlun um það."
+  }
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#FAFBFC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1117" media="(prefers-color-scheme: dark)">
+<title>Vikuplan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+<!-- Top bar: person toggle -->
+<div class="top-bar">
+  <div class="person-toggle">
+    <button class="person-btn active-solon" id="btn-solon">Sólon</button>
+    <button class="person-btn" id="btn-hekla">Hekla</button>
+  </div>
+</div>
+
+<!-- Main content area -->
+<div class="container" id="app">
+  <div class="empty-state">
+    <div class="empty-icon">⏳</div>
+    <div class="empty-text">Hleð inn...</div>
+  </div>
+</div>
+
+<!-- FAB button (quick note) -->
+<button class="fab" id="fab-btn" title="Ný athugasemd">+</button>
+
+<!-- Bottom navigation -->
+<nav class="bottom-nav" id="bottom-nav">
+  <div class="nav-inner">
+    <button class="nav-tab active" data-view="daily" onclick="location.hash='#daily'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span>Dagur</span>
+    </button>
+    <button class="nav-tab" data-view="inbox" onclick="location.hash='#inbox'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+      <span>Inbox</span>
+      <span class="nav-badge hidden" id="inbox-badge">0</span>
+    </button>
+    <button class="nav-tab" data-view="timeline" onclick="location.hash='#timeline'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span>Tímalína</span>
+    </button>
+    <button class="nav-tab" data-view="history" onclick="location.hash='#history'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 3v5h5"/><path d="M3 8a9 9 0 1 1 .83 4"/>
+      </svg>
+      <span>Saga</span>
+    </button>
+    <button class="nav-tab" data-view="yfirlit" onclick="location.hash='#yfirlit'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+      <span>Yfirlit</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Quick note modal -->
+<div class="modal-overlay" id="quick-note-modal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <h3 style="font-size:18px;font-weight:700;margin-bottom:14px">Ný athugasemd</h3>
+    <div class="inbox-categories" id="modal-categories">
+      <button class="inbox-cat active" data-cat="observation">💬 Athugasemd</button>
+      <button class="inbox-cat" data-cat="idea">💡 Hugmynd</button>
+      <button class="inbox-cat" data-cat="event">📅 Atburður</button>
+      <button class="inbox-cat" data-cat="thought">🤔 Pæling</button>
+    </div>
+    <textarea class="inbox-textarea" id="modal-text" placeholder="Hvað dettur þér í hug?"></textarea>
+    <button class="inbox-submit" id="modal-save">Vista</button>
+  </div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+<script type="module">
+  import { addInboxItem } from './js/data.js';
+  import { showToast, updateNavBadge } from './js/app.js';
+
+  // FAB -> quick note modal
+  const modal = document.getElementById('quick-note-modal');
+  const fab = document.getElementById('fab-btn');
+  let modalCat = 'observation';
+
+  fab.addEventListener('click', () => {
+    modal.classList.add('open');
+    document.getElementById('modal-text').value = '';
+    setTimeout(() => document.getElementById('modal-text').focus(), 300);
+  });
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.remove('open');
+  });
+
+  document.getElementById('modal-categories').addEventListener('click', (e) => {
+    const btn = e.target.closest('.inbox-cat');
+    if (!btn) return;
+    document.querySelectorAll('#modal-categories .inbox-cat').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    modalCat = btn.dataset.cat;
+  });
+
+  document.getElementById('modal-save').addEventListener('click', () => {
+    const text = document.getElementById('modal-text').value.trim();
+    if (!text) return;
+    addInboxItem({ category: modalCat, text });
+    updateNavBadge();
+    modal.classList.remove('open');
+    showToast('Bætt við inbox!');
+  });
+
+  // Enter to submit in modal
+  document.getElementById('modal-text').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      document.getElementById('modal-save').click();
+    }
+  });
+</script>
+</body>
+</html>

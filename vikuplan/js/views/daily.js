@@ -1,0 +1,187 @@
+// daily.js — Main daily view
+import { state, setDay, navigate } from '../app.js';
+import { getCheckin } from '../data.js';
+
+const ICONS = ['🌅', '☀️', '🕐', '🌙'];
+const PERIODS = ['Morgunn', 'Hádegi', 'Síðdegi', 'Kvöld'];
+const ABBR = ['M', 'Þ', 'Mi', 'Fi', 'Fö', 'L', 'S'];
+
+export function renderDaily(el) {
+  if (!state.weekData) {
+    el.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">📋</div>
+      <div class="empty-text">Engin vikugögn fundust.<br>Keyrðu sunnudagsflæðið í Claude Code til að búa til viku.</div>
+    </div>`;
+    return;
+  }
+
+  const d = state.weekData.days[state.selectedDay];
+  const isSolon = state.person === 'solon';
+  const name = isSolon ? 'Sólon' : 'Hekla';
+  const otherName = isSolon ? 'Hekla' : 'Sólon';
+  const view = isSolon ? d.solon : d.hekla;
+  const otherView = isSolon ? d.hekla : d.solon;
+  const tags = view.tags;
+  const alert = view.alert;
+  const otherAlert = otherView.alert;
+  const hours = isSolon ? state.weekData.hoursSummary.solon : state.weekData.hoursSummary.hekla;
+  const intentions = state.weekData.intentions;
+  const intention = isSolon ? intentions.solon : intentions.hekla;
+  const needFromOther = state.weekData.needFromOther?.[state.person];
+
+  const todayIdx = getTodayIdx();
+  const checkin = getCheckin(state.weekData.isoWeek);
+  const showCheckinBanner = shouldShowCheckin(todayIdx, checkin, state.person);
+
+  // Get relevant insights for this person
+  const insights = getRelevantInsights();
+
+  let html = '';
+
+  // Header
+  html += `<div class="header">
+    <h1>Vikuplanið þitt, ${name}</h1>
+    <div class="sub">${state.weekData.dateRange} · ${state.weekData.shiftPattern === 'A' ? 'Vika A (þung)' : 'Vika B (létt)'}</div>
+  </div>`;
+
+  // Intention
+  html += `<div class="intention">
+    <div class="label">Ásetningur vikunnar</div>
+    <div class="text">${intention}</div>
+    <div class="saman">Saman: ${intentions.saman}</div>
+    ${needFromOther ? `<div class="need">💬 ${otherName} þarf frá þér: ${needFromOther}</div>` : ''}
+  </div>`;
+
+  // AI Insights
+  if (insights.length > 0) {
+    insights.forEach(ins => {
+      html += `<div class="insight-card">
+        <span class="insight-icon">${ins.type === 'nudge' ? '💡' : ins.type === 'flag' ? '⚠️' : '📊'}</span>
+        <span>${ins.text}</span>
+      </div>`;
+    });
+  }
+
+  // Day picker
+  html += `<div class="day-picker">`;
+  for (let i = 0; i < 7; i++) {
+    const dayData = state.weekData.days[i];
+    const dateNum = dayData.isoDate.split('-')[2].replace(/^0/, '');
+    let cls = 'day-btn';
+    if (i === state.selectedDay) cls += ' active';
+    if (i === todayIdx && i !== state.selectedDay) cls += ' today';
+    html += `<button class="${cls}" data-day="${i}">
+      <div class="abbr">${ABBR[i]}</div>
+      <div class="num">${dateNum}</div>
+      ${i === todayIdx && i !== state.selectedDay ? '<div class="today-dot"></div>' : ''}
+    </button>`;
+  }
+  html += `</div>`;
+
+  // Day header
+  html += `<div class="day-header">
+    <h2>${d.name}</h2>
+    <div class="date">${d.date}</div>
+  </div>`;
+
+  // Tags
+  html += `<div class="tags">`;
+  tags.forEach(t => { html += `<span class="tag">${t}</span>`; });
+  html += `</div>`;
+
+  // Alert for self
+  if (alert) {
+    html += `<div class="alert">⚠️ ${alert}</div>`;
+  }
+
+  // Alert about the OTHER person's load
+  if (otherAlert) {
+    html += `<div class="alert-other">💛 ${otherName}: ${otherAlert}</div>`;
+  }
+
+  // Check-in banner (Wed-Sat)
+  if (showCheckinBanner) {
+    const done = checkin && checkin[state.person];
+    html += `<div class="checkin-banner ${done ? 'done' : ''}" data-action="checkin">
+      <span class="text">${done ? '✓ Check-in lokið' : 'Miðviku check-in — er vikan á réttri braut?'}</span>
+      <span class="arrow">→</span>
+    </div>`;
+  }
+
+  // Time blocks
+  const parts = [view.blocks.morning, view.blocks.midday, view.blocks.afternoon, view.blocks.evening];
+  html += `<div class="time-blocks">`;
+  parts.forEach((text, i) => {
+    html += `<div class="time-block">
+      <div class="icon">${ICONS[i]}</div>
+      <div class="content">
+        <div class="period">${PERIODS[i]}</div>
+        <div class="desc">${text}</div>
+      </div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // Other person context
+  html += `<div class="context-box">
+    <div class="label">${otherName} í dag</div>
+    <div class="text">${view.otherContext}</div>
+  </div>`;
+
+  // Dinner
+  html += `<div class="dinner-card">
+    <div class="icon">🍽️</div>
+    <div>
+      <div class="label">Kvöldmatur</div>
+      <div class="meal">${d.dinner}</div>
+    </div>
+  </div>`;
+
+  // Hours summary
+  html += `<details class="hours-card">
+    <summary style="cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+      <span class="title" style="margin:0">Vikuyfirlit — klukkustundir</span>
+      <span style="font-size:12px;color:var(--text-light)">▼</span>
+    </summary>
+    <div style="margin-top:12px">`;
+  hours.forEach(h => {
+    html += `<div class="hours-row">
+      <span class="cat">${h.category}</span>
+      <span class="val">${h.value}</span>
+    </div>`;
+  });
+  html += `</div></details>`;
+
+  html += `<div class="swipe-hint">Strjúktu til að skipta á milli daga</div>`;
+
+  el.innerHTML = html;
+
+  // Bind day picker clicks
+  el.querySelectorAll('.day-btn').forEach(btn => {
+    btn.addEventListener('click', () => setDay(parseInt(btn.dataset.day)));
+  });
+
+  // Bind checkin banner
+  const checkinBanner = el.querySelector('[data-action="checkin"]');
+  if (checkinBanner) {
+    checkinBanner.addEventListener('click', () => navigate('#checkin'));
+  }
+}
+
+function getTodayIdx() {
+  if (!state.weekData) return -1;
+  const today = new Date().toISOString().split('T')[0];
+  return state.weekData.days.findIndex(d => d.isoDate === today);
+}
+
+function shouldShowCheckin(todayIdx, checkin, person) {
+  // Show from Wednesday (idx 2) to Saturday (idx 5)
+  return todayIdx >= 2 && todayIdx <= 5;
+}
+
+function getRelevantInsights() {
+  if (!state.context || !state.context.insights) return [];
+  return state.context.insights.filter(ins =>
+    !ins.resolved && (ins.person === state.person || ins.person === 'both')
+  ).slice(0, 2);
+}

@@ -1,0 +1,13 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Excel temp files
+~$*
+
+# Claude Code
+.claude/
+
+# Node
+node_modules/

@@ -1,0 +1,232 @@
+{
+  "week": 12,
+  "year": 2026,
+  "isoWeek": "2026-W12",
+  "dateRange": "16.–22. mars 2026",
+  "shiftPattern": "A",
+  "intentions": {
+    "solon": "Rækt 2x + hlaupabrétti á öðrum dögum. Nám alla daga (70% skóli / 30% CAN SLIM). Hitta vini 1x.",
+    "hekla": "Reyna mæta í World Class (sun + mið). Róleg vika.",
+    "saman": "Fjölskyldu göngutúr ef veður leyfir — helst um helgina."
+  },
+  "needFromOther": {
+    "solon": "",
+    "hekla": ""
+  },
+  "coupleGoal": "Göngutúr saman um helgina",
+  "hoursSummary": {
+    "solon": [
+      { "category": "Vinna", "value": "39 klst" },
+      { "category": "Nám", "value": "~29 klst" },
+      { "category": "Rækt", "value": "~5 klst" },
+      { "category": "Með VD (ein)", "value": "~12 klst" },
+      { "category": "Félagslíf", "value": "~2 klst" },
+      { "category": "Saman (S+H)", "value": "~20 klst" }
+    ],
+    "hekla": [
+      { "category": "Vinna", "value": "40 klst" },
+      { "category": "Rækt", "value": "~1-2 klst" },
+      { "category": "Með VD (ein)", "value": "~18 klst" },
+      { "category": "Félagslíf", "value": "~2 klst" },
+      { "category": "Saman (S+H)", "value": "~20 klst" }
+    ]
+  },
+  "days": [
+    {
+      "name": "Mánudagur",
+      "date": "16. mars",
+      "isoDate": "2026-03-16",
+      "dinner": "Mexíkönsk kjúklingasúpa",
+      "solon": {
+        "tags": ["skóli", "hlaupabrétti", "sækja VD"],
+        "alert": null,
+        "blocks": {
+          "morning": "Þú skutlar VD til dagmömmu kl. 7:30 og ferð heim að læra. Þetta er skóladagur — einbeittu þér að háskólanáminu.",
+          "midday": "Nám alla daginn. Um tvíleytið ferðu á hlaupabréttið til að hreyfa þig.",
+          "afternoon": "Þú sækir VD kl. 15:30. Hekla kemur heim úr vinnu um fjögurleytið og fjölskyldan er saman.",
+          "evening": "Hekla fer í golfhermi með vinkonu kl. 19 — þú ert heima með VD. Eftir það saman/frí."
+        },
+        "otherContext": "Hekla er í vinnu 8–16, fer í golfhermi kl. 19."
+      },
+      "hekla": {
+        "tags": ["vinna", "golfhermir 🏌️"],
+        "alert": null,
+        "blocks": {
+          "morning": "Þú ferð í vinnu eins og venjulega. Sólon skutlar VD til dagmömmu.",
+          "midday": "Venjulegur vinnudagur hjá Advania.",
+          "afternoon": "Þú kemur heim úr vinnu um fjögurleytið. Sólon er búinn að sækja VD.",
+          "evening": "Þú ferð í golfhermi með vinkonu kl. 19:00! Sólon er heima með VD. Gott kvöld fyrir þig."
+        },
+        "otherContext": "Sólon er í skólanámi á daginn, sækir VD kl. 15:30."
+      }
+    },
+    {
+      "name": "Þriðjudagur",
+      "date": "17. mars",
+      "isoDate": "2026-03-17",
+      "dinner": "Hekla velur (S á vakt)",
+      "solon": {
+        "tags": ["skóli", "Nautilus?", "kvöldvakt"],
+        "alert": "Kvöldvakt 16:00–23:00",
+        "blocks": {
+          "morning": "Þú skutlar VD og ferð heim. Skóladagur — lestu og lærðu.",
+          "midday": "Nám alla daginn. Ef tími gefst — farðu í Nautilus um tvíleytið.",
+          "afternoon": "Hekla sækir VD kl. 15:30 í dag.",
+          "evening": "Þú ferð á kvöldvakt kl. 16. Fyrsta vakt vikunnar — vinnur til 23:00."
+        },
+        "otherContext": "Hekla sækir VD, er ein heima á kvöldin."
+      },
+      "hekla": {
+        "tags": ["vinna", "sækja VD", "ein m/VD"],
+        "alert": null,
+        "blocks": {
+          "morning": "Þú ferð í vinnu. Sólon skutlar VD og er í námi heima.",
+          "midday": "Vinnudagur hjá Advania.",
+          "afternoon": "Þú sækir VD kl. 15:30. Sólon fer á kvöldvakt kl. 16.",
+          "evening": "Þú ert ein heima með VD í kvöld. Veldu kvöldmat sem hentar ykkur. Sólon kemur heim um 23."
+        },
+        "otherContext": "Sólon er í námi á daginn, á kvöldvakt 16–23."
+      }
+    },
+    {
+      "name": "Miðvikudagur",
+      "date": "18. mars",
+      "isoDate": "2026-03-18",
+      "dinner": "Svínalundur",
+      "solon": {
+        "tags": ["skóli", "Nautilus?", "fríkvöld"],
+        "alert": null,
+        "blocks": {
+          "morning": "Þú skutlar VD og ferð heim. Skóladagur.",
+          "midday": "Nám á daginn. Um tvíleytið Nautilus ef þú komst ekki á þriðjudag.",
+          "afternoon": "Þú sækir VD kl. 15:30. Hekla kemur heim um fjögurleytið.",
+          "evening": "Fríkvöld! Svínalundur í kvöldmat. Kvöldið er saman/frí."
+        },
+        "otherContext": "Hekla skoðar mögulega WC tíma í hádegi. Kemur heim ~16."
+      },
+      "hekla": {
+        "tags": ["vinna", "WC í hádegi?", "fríkvöld"],
+        "alert": null,
+        "blocks": {
+          "morning": "Þú ferð í vinnu. Sólon skutlar VD.",
+          "midday": "Athugaðu hvort World Class tími í hádeginu hentar — nýttu tækifærið ef svo er!",
+          "afternoon": "Heim úr vinnu. Sólon búinn að sækja VD.",
+          "evening": "Gott kvöld saman! Allir heima, svínalundur í kvöldmat."
+        },
+        "otherContext": "Sólon er í skólanámi, sækir VD kl. 15:30. Fríkvöld hjá honum."
+      }
+    },
+    {
+      "name": "Fimmtudagur",
+      "date": "19. mars",
+      "isoDate": "2026-03-19",
+      "dinner": "Kjúklingur",
+      "solon": {
+        "tags": ["CAN SLIM", "hlaupabrétti", "hitta vini?"],
+        "alert": null,
+        "blocks": {
+          "morning": "Þú skutlar VD. Í dag er CAN SLIM dagur — einbeittu þér að fjárfestingarrannsóknum.",
+          "midday": "CAN SLIM nám allan daginn. Hlaupabrétti eftir hádegi.",
+          "afternoon": "Þú sækir VD kl. 15:30. Hekla kemur heim.",
+          "evening": "Eftir kvöldmat — mögulega hitta vini? Bjór eða golfæfingarsvæði. Hekla og VD eru heima."
+        },
+        "otherContext": "Hekla er í vinnu 8–16. Ein heima ef þú ferð að hitta vini."
+      },
+      "hekla": {
+        "tags": ["vinna", "heima m/VD"],
+        "alert": null,
+        "blocks": {
+          "morning": "Þú ferð í vinnu. Sólon er í CAN SLIM rannsóknum í dag.",
+          "midday": "Vinnudagur.",
+          "afternoon": "Heim úr vinnu. Sólon búinn að sækja VD.",
+          "evening": "Fjölskyldutími og kvöldmatur. Sólon fer mögulega að hitta vini — þú og VD heima."
+        },
+        "otherContext": "Sólon er í CAN SLIM námi, hittir mögulega vini á kvöldin."
+      }
+    },
+    {
+      "name": "Föstudagur",
+      "date": "20. mars",
+      "isoDate": "2026-03-20",
+      "dinner": "Hakk og spagettí",
+      "solon": {
+        "tags": ["skóli", "hlaupabrétti", "sækja VD 14:00"],
+        "alert": "Næturvakt í nótt: 23:00–08:00",
+        "blocks": {
+          "morning": "Þú skutlar VD og ferð heim. Skóladagur.",
+          "midday": "Nám á morgnana. Hlaupabrétti um eitt.",
+          "afternoon": "Þú sækir VD kl. 14:00 — snemma, dagmamma lokar. Þú og VD saman síðdegið.",
+          "evening": "Fjölskyldan borðar hakk og spagettí. Hvíldu þig — næturvakt kl. 23:00 til 08:00 á morgun."
+        },
+        "otherContext": "Hekla er í vinnu til 16. Fjölskyldan saman á kvöldin."
+      },
+      "hekla": {
+        "tags": ["vinna", "fjölskyldutími"],
+        "alert": "Sólon fer á næturvakt kl. 23",
+        "blocks": {
+          "morning": "Þú ferð í vinnu. Sólon skutlar VD.",
+          "midday": "Vinnudagur.",
+          "afternoon": "Sólon sækir VD kl. 14:00 (dagmamma lokar snemma á föstudögum).",
+          "evening": "Heim úr vinnu, fjölskyldan borðar saman. Rólegt kvöld — Sólon fer á næturvakt kl. 23."
+        },
+        "otherContext": "Sólon sækir VD kl. 14, fer á næturvakt kl. 23."
+      }
+    },
+    {
+      "name": "Laugardagur",
+      "date": "21. mars",
+      "isoDate": "2026-03-21",
+      "dinner": "Hekla velur (S á vakt)",
+      "solon": {
+        "tags": ["af vakt 08:00", "saman", "kvöldvakt 16–08"],
+        "alert": "Löng vakt: 16:00 → 08:00 á sunnudag (16 klst)",
+        "blocks": {
+          "morning": "Þú kemur heim af næturvakt kl. 8:00. Taktu morguninn rólega — Hekla og VD eru vaknaðar.",
+          "midday": "Fjölskyldan er saman! Þetta er besti tíminn fyrir göngutúrinn ef veðrið leyfir.",
+          "afternoon": "Saman fram á miðjan dag. Njótið þess.",
+          "evening": "Þú ferð á kvöldvakt kl. 16:00, síðan beint í næturvakt til 08:00 á sunnudaginn. Löng vakt — hvíldu þig vel á morgnana."
+        },
+        "otherContext": "Hekla er ein heima með VD frá kl. 16 og alla nóttina."
+      },
+      "hekla": {
+        "tags": ["saman", "ein m/VD frá 16"],
+        "alert": "Sólon á 16 klst vakt — þú ert ein með VD frá 16:00",
+        "blocks": {
+          "morning": "Sólon kemur heim af næturvakt kl. 8:00. Þú og VD eruð heima.",
+          "midday": "Fjölskyldan er saman! Mögulega göngutúr ef veðrið hentar. Njótið þess.",
+          "afternoon": "Saman til um kl. 16.",
+          "evening": "Sólon fer á vakt kl. 16 og kemur ekki aftur fyrr en kl. 8 á morgun. Þú ert ein heima með VD — veldu kvöldmat."
+        },
+        "otherContext": "Sólon kemur af næturvakt kl. 8, fer aftur á vakt kl. 16 (16 klst vakt)."
+      }
+    },
+    {
+      "name": "Sunnudagur",
+      "date": "22. mars",
+      "isoDate": "2026-03-22",
+      "dinner": "Hekla velur (S á vakt)",
+      "solon": {
+        "tags": ["af vakt 08:00", "passa VD", "kvöldvakt 16–23"],
+        "alert": "Síðasta vakt vikunnar: 16:00–23:00",
+        "blocks": {
+          "morning": "Þú kemur heim af vakt kl. 8:00. Þú passar VD á meðan Hekla fer í World Class kl. 9.",
+          "midday": "Hekla kemur til baka og fjölskyldan er saman frá ~10.",
+          "afternoon": "Saman fram eftir degi.",
+          "evening": "Síðasta kvöldvakt vikunnar — 16:00 til 23:00. Vikan er búin eftir þetta!"
+        },
+        "otherContext": "Hekla fer í WC kl. 9, annars saman. Ein heima frá 16."
+      },
+      "hekla": {
+        "tags": ["World Class 09:00", "saman", "ein m/VD frá 16"],
+        "alert": null,
+        "blocks": {
+          "morning": "Sólon kemur heim af vakt kl. 8:00 og passar VD. Þú ferð í World Class kl. 9:00!",
+          "midday": "Eftir WC er fjölskyldan saman. Njótið dagsins.",
+          "afternoon": "Saman til um 16.",
+          "evening": "Sólon fer á sína síðustu kvöldvakt (16–23). Þú og VD eruð heima. Vikan er búin!"
+        },
+        "otherContext": "Sólon kemur af vakt 8:00, passar VD 8–10, fer á vakt 16–23."
+      }
+    }
+  ]
+}
