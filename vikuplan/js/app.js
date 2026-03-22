@@ -2,16 +2,16 @@
 import {
   loadWeekIndex, loadWeek, loadLongTerm, loadContext,
   getSelectedPerson, setSelectedPerson, getInboxItems
-} from './data.js?v=7';
-import { renderDaily } from './views/daily.js?v=7';
-import { renderInbox } from './views/inbox.js?v=7';
-import { renderCheckin } from './views/checkin.js?v=7';
-import { renderTimeline } from './views/timeline.js?v=7';
-import { renderHistory } from './views/history.js?v=7';
-import { renderReflection } from './views/reflection.js?v=7';
-import { renderYfirlit } from './views/yfirlit.js?v=7';
-import { renderVd } from './views/vd.js?v=7';
-import { renderPersonal } from './views/personal.js?v=7';
+} from './data.js?v=8';
+import { renderDaily } from './views/daily.js?v=8';
+import { renderInbox } from './views/inbox.js?v=8';
+import { renderCheckin } from './views/checkin.js?v=8';
+import { renderTimeline } from './views/timeline.js?v=8';
+import { renderHistory } from './views/history.js?v=8';
+import { renderReflection } from './views/reflection.js?v=8';
+import { renderYfirlit } from './views/yfirlit.js?v=8';
+import { renderVd } from './views/vd.js?v=8';
+import { renderPersonal } from './views/personal.js?v=8';
 
 // Global state
 export const state = {

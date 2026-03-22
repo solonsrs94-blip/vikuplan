@@ -1,6 +1,6 @@
 // history.js — Weekly history browser + mood trends
-import { state, navigate } from '../app.js?v=7';
-import { loadWeek, loadReflection, loadAiSummary } from '../data.js?v=7';
+import { state, navigate } from '../app.js?v=8';
+import { loadWeek, loadReflection, loadAiSummary } from '../data.js?v=8';
 
 export async function renderHistory(el) {
   const weekIndex = [...state.weekIndex].reverse();

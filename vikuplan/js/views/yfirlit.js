@@ -1,7 +1,7 @@
 // yfirlit.js — Overview dashboard with visual stats, trends, and AI insights
-import { state, navigate } from '../app.js?v=7';
-import { loadAiSummary, lsGet, lsSet, exportAllUserData } from '../data.js?v=7';
-import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js?v=7';
+import { state, navigate } from '../app.js?v=8';
+import { loadAiSummary, lsGet, lsSet, exportAllUserData } from '../data.js?v=8';
+import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js?v=8';
 
 const DATE_IDEAS = [
   // Útivist (barnvænt)
@@ -57,6 +57,18 @@ export async function renderYfirlit(el) {
       </div>
     </div>`;
   }
+
+  // Tímalína (áberandi)
+  html += `<div class="ov-card timeline-card" data-action="timeline" style="cursor:pointer;background:linear-gradient(135deg, var(--accent-light) 0%, var(--accent-mid) 100%);border:1px solid var(--accent);border-left:4px solid var(--accent)">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="font-size:28px">🗓️</div>
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:15px;color:var(--accent-dark)">Tímalína</div>
+        <div style="font-size:12px;color:var(--text-mid);margin-top:2px">Atburðir, ferðir og tímamót</div>
+      </div>
+      <div style="font-size:18px;color:var(--accent)">→</div>
+    </div>
+  </div>`;
 
   // 2. Heatmap
   const loadScores = ctx?.weeklyLoadScores?.[currentWeek];
@@ -184,17 +196,6 @@ export async function renderYfirlit(el) {
   if (lt?.events) {
     html += renderSeasonWheel(lt.events, today);
   }
-
-  // Tímalína link
-  html += `<div class="ov-card" data-action="timeline" style="cursor:pointer">
-    <div style="display:flex;align-items:center;gap:12px">
-      <div style="font-size:22px">🗓️</div>
-      <div>
-        <div class="ov-title">Tímalína <span style="font-size:12px;color:var(--text-light)">→</span></div>
-        <div class="ov-subtitle">Allir atburðir og tímamót</div>
-      </div>
-    </div>
-  </div>`;
 
   // 12. Random date idea
   const randomIdea = DATE_IDEAS[Math.floor(Math.random() * DATE_IDEAS.length)];

@@ -1,11 +1,11 @@
 // personal.js — Personal dashboard with card navigation to sub-views
-import { state, navigate } from '../app.js?v=7';
-import { showToast } from '../app.js?v=7';
+import { state, navigate } from '../app.js?v=8';
+import { showToast } from '../app.js?v=8';
 import {
   getTodos, addTodo, toggleTodo, removeTodo,
   getExerciseLog, addExerciseEntry,
   lsGet, lsSet
-} from '../data.js?v=7';
+} from '../data.js?v=8';
 
 // ===== SUB-VIEW STATE =====
 let subView = 'overview'; // overview | ideas | health | gym | diet | todos
