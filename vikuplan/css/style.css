@@ -1077,6 +1077,50 @@ body {
   .date-idea-text { color: #A7F3D0; }
   .date-idea-refresh { color: #34D399; }
   .hm-cell { text-shadow: 0 0 3px rgba(0,0,0,0.5); }
-  .vikuord-input { background: var(--card); border-color: var(--border); color: var(--text); }
   .progress-ring-inner { background: var(--card); }
+  .bp-chip span { background: var(--card); border-color: var(--border); color: var(--text); }
+  .bp-chip input:checked + span { background: var(--accent); color: #fff; }
+}
+
+/* ==============================
+   Personal Sub-views
+   ============================== */
+.personal-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.personal-card:active {
+  transform: scale(0.98);
+}
+
+/* Form labels */
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+
+/* Body part chips (gym tracker) */
+.bp-chip {
+  display: inline-flex;
+  cursor: pointer;
+}
+.bp-chip input {
+  display: none;
+}
+.bp-chip span {
+  padding: 4px 10px;
+  border-radius: 14px;
+  font-size: 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: all 0.15s ease;
+}
+.bp-chip input:checked + span {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
 }

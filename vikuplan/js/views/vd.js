@@ -1,7 +1,7 @@
 // vd.js — Viktoría Dís view
-import { state, navigate } from '../app.js?v=5';
-import { getVdNotes, addVdNote, removeVdNote, getVdGoals, addVdGoal, toggleVdGoal, removeVdGoal } from '../data.js?v=5';
-import { showToast } from '../app.js?v=5';
+import { state, navigate } from '../app.js?v=6';
+import { getVdNotes, addVdNote, removeVdNote, getVdGoals, addVdGoal, toggleVdGoal, removeVdGoal, lsGet, lsSet } from '../data.js?v=6';
+import { showToast } from '../app.js?v=6';
 
 const NOTE_CATS = [
   { id: 'observation', label: '💬 Athugasemd' },
@@ -60,6 +60,35 @@ export function renderVd(el) {
     </div>
   </div>`;
 
+  // Growth chart
+  const growth = lsGet('vd_growth') || [];
+  html += `<div class="section-title">Vaxtarkúrfa</div>`;
+  html += `<div class="personal-section">
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <input type="date" class="note-input" id="growth-date" value="${now.toISOString().split('T')[0]}" style="flex:1">
+      <input type="number" class="note-input" id="growth-height" placeholder="Hæð (cm)" style="flex:1" step="0.1">
+      <input type="number" class="note-input" id="growth-weight" placeholder="Þyngd (kg)" style="flex:1" step="0.1">
+    </div>
+    <button class="inbox-submit" id="growth-add" style="width:100%">Skrá mælingu</button>
+  </div>`;
+
+  if (growth.length > 0) {
+    // Simple chart
+    html += `<div class="ov-card" style="margin-bottom:12px">`;
+    html += renderGrowthChart(growth);
+    // Table
+    html += `<div style="margin-top:12px">`;
+    growth.slice().reverse().forEach(g => {
+      const dateStr = new Date(g.date + 'T12:00:00').toLocaleDateString('is-IS', { day: 'numeric', month: 'short', year: 'numeric' });
+      html += `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);font-size:13px">
+        <span>${dateStr}</span>
+        <span>${g.height ? g.height + ' cm' : '—'} · ${g.weight ? g.weight + ' kg' : '—'}</span>
+        <button class="note-delete" data-growth-delete="${g.id}" style="font-size:11px">✕</button>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
   // Goals
   html += `<div class="section-title">Markmið</div>`;
   html += `<div class="vd-goals">`;
@@ -108,6 +137,34 @@ export function renderVd(el) {
 
   // Bind events
   el.querySelector('.back-btn')?.addEventListener('click', () => navigate('#yfirlit'));
+
+  // Growth chart
+  el.querySelector('#growth-add')?.addEventListener('click', () => {
+    const date = document.getElementById('growth-date')?.value;
+    const height = document.getElementById('growth-height')?.value;
+    const weight = document.getElementById('growth-weight')?.value;
+    if (!height && !weight) return;
+    const items = lsGet('vd_growth') || [];
+    items.push({
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      date: date || new Date().toISOString().split('T')[0],
+      height: height ? parseFloat(height) : null,
+      weight: weight ? parseFloat(weight) : null
+    });
+    items.sort((a, b) => a.date.localeCompare(b.date));
+    lsSet('vd_growth', items);
+    showToast('Mæling skráð!');
+    renderVd(el);
+  });
+
+  el.querySelectorAll('[data-growth-delete]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const items = (lsGet('vd_growth') || []).filter(i => i.id !== btn.dataset.growthDelete);
+      lsSet('vd_growth', items);
+      renderVd(el);
+    });
+  });
 
   // Category select
   el.querySelectorAll('.vd-cats .inbox-cat').forEach(btn => {
@@ -170,6 +227,58 @@ export function renderVd(el) {
       renderVd(el);
     }
   });
+}
+
+function renderGrowthChart(data) {
+  if (data.length < 2) {
+    return `<div style="font-size:13px;color:var(--text-light);text-align:center;padding:10px">Skráðu fleiri mælingar til að sjá graf</div>`;
+  }
+
+  const w = 280, h = 120, pad = { top: 15, right: 15, bottom: 25, left: 35 };
+  const plotW = w - pad.left - pad.right;
+  const plotH = h - pad.top - pad.bottom;
+
+  const heights = data.filter(d => d.height).map(d => d.height);
+  const weights = data.filter(d => d.weight).map(d => d.weight);
+
+  let svg = `<svg viewBox="0 0 ${w} ${h}" style="width:100%;max-height:140px">`;
+
+  if (heights.length >= 2) {
+    const minH = Math.min(...heights) - 2;
+    const maxH = Math.max(...heights) + 2;
+    const hData = data.filter(d => d.height);
+    const xStep = plotW / (hData.length - 1);
+    const toY = v => pad.top + plotH - ((v - minH) / (maxH - minH)) * plotH;
+    let path = '';
+    hData.forEach((d, i) => {
+      path += `${i === 0 ? 'M' : 'L'}${(pad.left + i * xStep).toFixed(1)},${toY(d.height).toFixed(1)} `;
+    });
+    svg += `<polyline points="${path.trim()}" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>`;
+    // Labels
+    svg += `<text x="${pad.left - 4}" y="${pad.top}" text-anchor="end" fill="#2563EB" font-size="8">${maxH}cm</text>`;
+    svg += `<text x="${pad.left - 4}" y="${pad.top + plotH}" text-anchor="end" fill="#2563EB" font-size="8">${minH}cm</text>`;
+  }
+
+  if (weights.length >= 2) {
+    const minW = Math.min(...weights) - 1;
+    const maxW = Math.max(...weights) + 1;
+    const wData = data.filter(d => d.weight);
+    const xStep = plotW / (wData.length - 1);
+    const toY = v => pad.top + plotH - ((v - minW) / (maxW - minW)) * plotH;
+    let path = '';
+    wData.forEach((d, i) => {
+      path += `${i === 0 ? 'M' : 'L'}${(pad.left + i * xStep).toFixed(1)},${toY(d.weight).toFixed(1)} `;
+    });
+    svg += `<polyline points="${path.trim()}" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-dasharray="4,2"/>`;
+  }
+
+  svg += `</svg>`;
+  svg += `<div style="display:flex;gap:16px;justify-content:center;font-size:11px;margin-top:4px">
+    <span style="color:#2563EB">● Hæð (cm)</span>
+    <span style="color:#059669">● Þyngd (kg)</span>
+  </div>`;
+
+  return svg;
 }
 
 function escapeHtml(text) {
