@@ -1,7 +1,7 @@
 // personal.js — Personal dashboard (todos, exercise, goals)
-import { state, navigate } from '../app.js?v=4';
-import { getTodos, addTodo, toggleTodo, removeTodo, getExerciseLog, addExerciseEntry } from '../data.js?v=4';
-import { showToast } from '../app.js?v=4';
+import { state, navigate } from '../app.js?v=5';
+import { getTodos, addTodo, toggleTodo, removeTodo, getExerciseLog, addExerciseEntry } from '../data.js?v=5';
+import { showToast } from '../app.js?v=5';
 
 const CATS = {
   solon: [

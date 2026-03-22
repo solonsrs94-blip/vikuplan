@@ -1,24 +1,37 @@
 // yfirlit.js — Overview dashboard with visual stats, trends, and AI insights
-import { state, navigate } from '../app.js?v=4';
-import { loadAiSummary, lsGet, lsSet, exportAllUserData } from '../data.js?v=4';
-import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js?v=4';
+import { state, navigate } from '../app.js?v=5';
+import { loadAiSummary, lsGet, lsSet, exportAllUserData } from '../data.js?v=5';
+import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js?v=5';
 
 const DATE_IDEAS = [
-  'Farið á göngu á Úlfarsfellið',
-  'Pantið Thai og horfið á kvikmynd saman',
-  'Bökuð eitthvað saman eftir að VD er sofin',
-  'Farið á kaffihús og lesið bækur',
-  'Spiluð borðspil saman',
-  'Eldið nýja uppskrift saman',
-  'Farið á sund saman',
-  'Farið á bíó',
-  'Keyrið út fyrir bæ og horfið á sólsetur',
-  'Hringið í vini og bjóðið þeim í mat',
-  'Farið á göngu um Reykjavíkurtjörn',
+  // Útivist (barnvænt)
+  'Gönguferð um Heiðmörk með VD í vagni',
+  'Gangið hringinn um Vífilsstaðavatn með VD',
+  'Gönguferð í Hafnarfjarðarhrauni á auðveldri leið',
+  'Röltið niður í miðbæ Hafnarfjarðar og fáið ykkur drykk',
+  'Farið á Nautshólsvík ef sól skín — takið með ykkur nesti',
+  'Keyrið á Gróttu í Seltjarnarnesi með VD',
+  'Farið í Grasagarðinn í Laugardal með VD',
+  // Matur og date heima (eftir að VD sefur)
+  'Eldið nýja uppskrift saman og gerið keppni — hvor velur eina rétt',
+  'Bakið eitthvað saman — köku, brauð eða smákökur',
+  'Heima-date: kertaljós, góður matur, engin sími',
+  'Vín- og ostakvöld — prófið þrjá osta og þrjú vín',
+  'Kokteilkvöld heima — prófið að gera drykki eftir uppskrift',
+  'Þemakvöld: veljið land og eldið mat, settið á tónlist þaðan',
+  'Blindsmökkun: hvor um sig velur þrjá bita og hinn giskar',
+  // Rólegt (heima)
+  'Spilið borðspil saman',
   'Gerið pusluspil saman',
-  'Hlustaðu á podcast saman í bíl',
-  'Pantið pizza og horfið á heimildarmynd',
-  'Farið út á rúllu saman'
+  'Setjið upp ljósmyndir frá ferðalögum saman',
+  'Byrjið seríu saman sem þið skuldbindið ykkur í',
+  'Gerið spurningaleik um hvort annað — hversu vel þekkir þú mig?',
+  // Virkni
+  'Farið á sund sem fjölskylda',
+  'Farið á golfæfingasvæði saman',
+  'Farið í bíó',
+  'Bjóðið vinum heim í mat',
+  'Farið í ræktina saman',
 ];
 
 export async function renderYfirlit(el) {
