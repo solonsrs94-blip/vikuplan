@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background circle -->
+  <rect width="512" height="512" rx="112" fill="#2563EB"/>
+
+  <!-- House shape (home/family) -->
+  <path d="M256 120 L380 220 L380 390 L132 390 L132 220 Z" fill="none" stroke="white" stroke-width="22" stroke-linejoin="round"/>
+
+  <!-- Roof peak highlight -->
+  <path d="M256 120 L380 220" fill="none" stroke="white" stroke-width="22" stroke-linecap="round"/>
+  <path d="M256 120 L132 220" fill="none" stroke="white" stroke-width="22" stroke-linecap="round"/>
+
+  <!-- Heart inside house -->
+  <path d="M256 310
+    C256 310 206 270 206 245
+    C206 225 220 215 236 215
+    C248 215 256 225 256 225
+    C256 225 264 215 276 215
+    C292 215 306 225 306 245
+    C306 270 256 310 256 310Z"
+    fill="white" opacity="0.95"/>
+
+  <!-- Three dots (family members) above heart -->
+  <circle cx="224" cy="180" r="10" fill="white" opacity="0.7"/>
+  <circle cx="256" cy="170" r="10" fill="white" opacity="0.7"/>
+  <circle cx="288" cy="180" r="10" fill="white" opacity="0.7"/>
+</svg>
