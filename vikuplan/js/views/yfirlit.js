@@ -1,7 +1,7 @@
 // yfirlit.js — Overview dashboard with visual stats, trends, and AI insights
-import { state, navigate } from '../app.js?v=2';
-import { loadAiSummary, getVikuord, setVikuord, lsGet, lsSet, exportAllUserData } from '../data.js?v=2';
-import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js?v=2';
+import { state, navigate } from '../app.js?v=3';
+import { loadAiSummary, getVikuord, setVikuord, lsGet, lsSet, exportAllUserData } from '../data.js?v=3';
+import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js?v=3';
 
 const DATE_IDEAS = [
   'Farið á göngu á Úlfarsfellið',
@@ -57,8 +57,10 @@ export async function renderYfirlit(el) {
     const parseHours = (arr) => {
       const result = {};
       (arr || []).forEach(item => {
-        const num = parseFloat(String(item.value).replace(/[^0-9.]/g, ''));
-        if (!isNaN(num)) result[item.category] = num;
+        const str = String(item.value);
+        // Handle ranges like "~25–30 klst" by taking the first number
+        const match = str.match(/[\d.]+/);
+        if (match) result[item.category] = parseFloat(match[0]);
       });
       return result;
     };
