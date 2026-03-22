@@ -2,16 +2,17 @@
 import {
   loadWeekIndex, loadWeek, loadLongTerm, loadContext,
   getSelectedPerson, setSelectedPerson, getInboxItems
-} from './data.js?v=10';
-import { renderDaily } from './views/daily.js?v=10';
-import { renderInbox } from './views/inbox.js?v=10';
-import { renderCheckin } from './views/checkin.js?v=10';
-import { renderTimeline } from './views/timeline.js?v=10';
-import { renderHistory } from './views/history.js?v=10';
-import { renderReflection, renderMonthly } from './views/reflection.js?v=10';
-import { renderYfirlit } from './views/yfirlit.js?v=10';
-import { renderVd } from './views/vd.js?v=10';
-import { renderPersonal } from './views/personal.js?v=10';
+} from './data.js?v=11';
+import { renderDaily } from './views/daily.js?v=11';
+import { renderInbox } from './views/inbox.js?v=11';
+import { renderCheckin } from './views/checkin.js?v=11';
+import { renderTimeline } from './views/timeline.js?v=11';
+import { renderHistory } from './views/history.js?v=11';
+import { renderReflection, renderMonthly } from './views/reflection.js?v=11';
+import { renderYfirlit } from './views/yfirlit.js?v=11';
+import { renderVd } from './views/vd.js?v=11';
+import { renderPersonal } from './views/personal.js?v=11';
+import { initFirebaseSync } from './firebase.js?v=11';
 
 // Global state
 export const state = {
@@ -58,6 +59,13 @@ export async function init() {
 
   // Setup swipe
   setupSwipe();
+
+  // Firebase sync
+  initFirebaseSync().then(() => {
+    // Re-render after sync in case new data came in
+    route();
+    updateNavBadge();
+  });
 
   // Route
   window.addEventListener('hashchange', route);
