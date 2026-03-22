@@ -1,7 +1,7 @@
 // yfirlit.js — Overview dashboard with visual stats, trends, and AI insights
-import { state, navigate } from '../app.js?v=14';
-import { loadAiSummary, lsGet, lsSet, exportAllUserData } from '../data.js?v=14';
-import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js?v=14';
+import { state, navigate } from '../app.js?v=15';
+import { loadAiSummary, lsGet, lsSet, exportAllUserData } from '../data.js?v=15';
+import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js?v=15';
 
 const DATE_IDEAS = [
   // Útivist (barnvænt)

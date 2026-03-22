@@ -1,6 +1,6 @@
 // daily.js — Main daily view
-import { state, setDay, navigate } from '../app.js?v=14';
-import { getCheckin, getDayNotes, addDayNote, removeDayNote, toggleDayNote } from '../data.js?v=14';
+import { state, setDay, navigate } from '../app.js?v=15';
+import { getCheckin, getDayNotes, addDayNote, removeDayNote, toggleDayNote } from '../data.js?v=15';
 
 const ICONS = ['🌅', '☀️', '🕐', '🌙'];
 const PERIODS = ['Morgunn', 'Hádegi', 'Síðdegi', 'Kvöld'];
@@ -100,11 +100,12 @@ export function renderDaily(el) {
   const parts = [view.blocks.morning, view.blocks.midday, view.blocks.afternoon, view.blocks.evening];
   const isoDate = d.isoDate;
   const dayNotes = getDayNotes(isoDate);
+  const currentPerson = state.person;
 
   html += `<div class="time-blocks">`;
   parts.forEach((text, i) => {
     const periodKey = PERIOD_KEYS[i];
-    const periodNotes = dayNotes.filter(n => n.period === periodKey);
+    const periodNotes = dayNotes.filter(n => n.period === periodKey && n.person === currentPerson);
 
     html += `<div class="time-block">
       <div class="icon">${ICONS[i]}</div>
