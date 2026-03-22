@@ -1,5 +1,5 @@
 // Service Worker — Cache busting + offline support
-const CACHE_VERSION = 'v2026-03-22j';
+const CACHE_VERSION = 'v2026-03-22k';
 const CACHE_NAME = `vikuplan-${CACHE_VERSION}`;
 
 const APP_SHELL = [

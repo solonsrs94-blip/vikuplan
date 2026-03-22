@@ -1030,57 +1030,7 @@ body {
    DARK MODE
    ============================== */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0F1117;
-    --card: #1A1D27;
-    --text: #F3F4F6;
-    --text-mid: #9CA3AF;
-    --text-light: #6B7280;
-    --border: #2D3242;
-    --border-light: #1F2335;
-    --accent-light: #172036;
-    --accent-mid: #1E2D50;
-    --danger-light: #2D1215;
-    --danger-border: #5C2226;
-    --warning-light: #271E0B;
-    --warning-border: #5C4A18;
-    --success-light: #0D2818;
-  }
-  .top-bar { background: rgba(15,17,23,0.92); border-color: var(--border); }
-  .bottom-nav { background: rgba(15,17,23,0.95); border-color: var(--border); }
-  .person-btn { color: #6B7280; border-color: var(--border); background: transparent; }
-  .day-btn { background: #1A1D27; }
-  .day-btn .num { color: #D1D5DB; }
-  .day-btn.today:not(.active) { background: var(--accent-mid); }
-  .alert { background: #2D1215; border-color: #5C2226; color: #FCA5A5; }
-  .alert-other { background: #271E0B; border-color: #5C4A18; color: #FDE68A; }
-  .dinner-card { background: #271E0B; border-color: #5C4A18; }
-  .dinner-card .label { color: #FBBF24; }
-  .dinner-card .meal { color: #FDE68A; }
-  .insight-card { background: #271A0B; border-color: #5C3A18; color: #FDBA74; }
-  .context-box { background: var(--card); border-color: var(--border); }
-  .tag { background: var(--accent-light); border-color: var(--accent-mid); }
-  .fab { box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-  .inbox-textarea, .checkin-comment { background: var(--card); border-color: var(--border); color: var(--text); }
-  .checkin-option { background: var(--card); border-color: var(--border); color: var(--text-mid); }
-  .checkin-option.selected { background: var(--accent-light); border-color: var(--accent); }
-  .modal-sheet { background: var(--card); }
-  .toast { background: #F3F4F6; color: #111827; }
-  /* Yfirlit dark mode */
-  .ov-ai { background: linear-gradient(135deg, #271A0B 0%, #271E0B 100%); border-color: #5C3A18; }
-  .ov-ai-text { color: #FDBA74; }
-  .streak-card { background: linear-gradient(135deg, #271A0B 0%, #2D1215 100%); border-color: #5C3A18; }
-  .streak-num { color: #FB923C; }
-  .streak-text { color: #FDBA74; }
-  .date-idea-card { background: linear-gradient(135deg, #0D2818 0%, #0D2818 100%); border-color: #166534; }
-  .date-idea-text { color: #A7F3D0; }
-  .date-idea-refresh { color: #34D399; }
-  .hm-cell { text-shadow: 0 0 3px rgba(0,0,0,0.5); }
-  .progress-ring-inner { background: var(--card); }
-  .bp-chip span { background: var(--card); border-color: var(--border); color: var(--text); }
-  .bp-chip input:checked + span { background: var(--accent); color: #fff; }
-}
+/* Dark mode disabled — always light */
 
 /* ==============================
    Personal Sub-views
