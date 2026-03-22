@@ -284,8 +284,7 @@ body {
 }
 .day-note.note-hekla { border-left-color: #059669; }
 .day-note.note-solon { border-left-color: #2563EB; }
-.day-note.done .note-text { text-decoration: line-through; color: var(--text-light); }
-.note-check { accent-color: var(--accent); width: 16px; height: 16px; flex-shrink: 0; }
+.note-bullet { font-size: 16px; flex-shrink: 0; color: var(--text-light); }
 .note-text { flex: 1; }
 .note-delete {
   background: none; border: none; color: var(--text-light); cursor: pointer;

@@ -1,6 +1,6 @@
 // daily.js — Main daily view
-import { state, setDay, navigate } from '../app.js?v=15';
-import { getCheckin, getDayNotes, addDayNote, removeDayNote, toggleDayNote } from '../data.js?v=15';
+import { state, setDay, navigate } from '../app.js?v=16';
+import { getCheckin, getDayNotes, addDayNote, removeDayNote, toggleDayNote } from '../data.js?v=16';
 
 const ICONS = ['🌅', '☀️', '🕐', '🌙'];
 const PERIODS = ['Morgunn', 'Hádegi', 'Síðdegi', 'Kvöld'];
@@ -118,8 +118,8 @@ export function renderDaily(el) {
       html += `<div class="day-notes">`;
       periodNotes.forEach(note => {
         const personCls = note.person === 'solon' ? 'note-solon' : 'note-hekla';
-        html += `<div class="day-note ${note.done ? 'done' : ''} ${personCls}">
-          <input type="checkbox" class="note-check" data-note-id="${note.id}" data-date="${isoDate}" ${note.done ? 'checked' : ''}>
+        html += `<div class="day-note ${personCls}">
+          <span class="note-bullet">•</span>
           <span class="note-text">${escapeHtml(note.text)}</span>
           <button class="note-delete" data-note-id="${note.id}" data-date="${isoDate}">✕</button>
         </div>`;
@@ -205,14 +205,6 @@ export function renderDaily(el) {
         input.value = '';
         input.closest('.note-input-row').classList.add('hidden');
       }
-    });
-  });
-
-  // Day notes: toggle done
-  el.querySelectorAll('.note-check').forEach(cb => {
-    cb.addEventListener('change', () => {
-      toggleDayNote(cb.dataset.date, cb.dataset.noteId);
-      renderDaily(el);
     });
   });
 

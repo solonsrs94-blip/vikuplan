@@ -2,17 +2,17 @@
 import {
   loadWeekIndex, loadWeek, loadLongTerm, loadContext,
   getSelectedPerson, setSelectedPerson, getInboxItems
-} from './data.js?v=15';
-import { renderDaily } from './views/daily.js?v=15';
-import { renderInbox } from './views/inbox.js?v=15';
-import { renderCheckin } from './views/checkin.js?v=15';
-import { renderTimeline } from './views/timeline.js?v=15';
-import { renderHistory } from './views/history.js?v=15';
-import { renderReflection, renderMonthly } from './views/reflection.js?v=15';
-import { renderYfirlit } from './views/yfirlit.js?v=15';
-import { renderVd } from './views/vd.js?v=15';
-import { renderPersonal } from './views/personal.js?v=15';
-import { initFirebaseSync } from './firebase.js?v=15';
+} from './data.js?v=16';
+import { renderDaily } from './views/daily.js?v=16';
+import { renderInbox } from './views/inbox.js?v=16';
+import { renderCheckin } from './views/checkin.js?v=16';
+import { renderTimeline } from './views/timeline.js?v=16';
+import { renderHistory } from './views/history.js?v=16';
+import { renderReflection, renderMonthly } from './views/reflection.js?v=16';
+import { renderYfirlit } from './views/yfirlit.js?v=16';
+import { renderVd } from './views/vd.js?v=16';
+import { renderPersonal } from './views/personal.js?v=16';
+import { initFirebaseSync } from './firebase.js?v=16';
 
 // Global state
 export const state = {
