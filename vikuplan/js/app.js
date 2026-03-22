@@ -2,16 +2,16 @@
 import {
   loadWeekIndex, loadWeek, loadLongTerm, loadContext,
   getSelectedPerson, setSelectedPerson, getInboxItems
-} from './data.js?v=9';
-import { renderDaily } from './views/daily.js?v=9';
-import { renderInbox } from './views/inbox.js?v=9';
-import { renderCheckin } from './views/checkin.js?v=9';
-import { renderTimeline } from './views/timeline.js?v=9';
-import { renderHistory } from './views/history.js?v=9';
-import { renderReflection } from './views/reflection.js?v=9';
-import { renderYfirlit } from './views/yfirlit.js?v=9';
-import { renderVd } from './views/vd.js?v=9';
-import { renderPersonal } from './views/personal.js?v=9';
+} from './data.js?v=10';
+import { renderDaily } from './views/daily.js?v=10';
+import { renderInbox } from './views/inbox.js?v=10';
+import { renderCheckin } from './views/checkin.js?v=10';
+import { renderTimeline } from './views/timeline.js?v=10';
+import { renderHistory } from './views/history.js?v=10';
+import { renderReflection, renderMonthly } from './views/reflection.js?v=10';
+import { renderYfirlit } from './views/yfirlit.js?v=10';
+import { renderVd } from './views/vd.js?v=10';
+import { renderPersonal } from './views/personal.js?v=10';
 
 // Global state
 export const state = {
@@ -127,6 +127,7 @@ function route() {
     case 'timeline': renderTimeline(appEl); break;
     case 'history': renderHistory(appEl); break;
     case 'reflection': renderReflection(appEl, param); break;
+    case 'monthly': renderMonthly(appEl, param); break;
     case 'yfirlit': renderYfirlit(appEl); break;
     case 'vd': renderVd(appEl); break;
     case 'personal': renderPersonal(appEl, 'overview'); break;

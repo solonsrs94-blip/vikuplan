@@ -1,6 +1,6 @@
 // reflection.js — View a specific week's narrative + reflection
-import { state, navigate } from '../app.js?v=9';
-import { loadReflection, loadWeek } from '../data.js?v=9';
+import { state, navigate } from '../app.js?v=10';
+import { loadReflection, loadWeek, loadAiSummary } from '../data.js?v=10';
 
 export async function renderReflection(el, isoWeek) {
   if (!isoWeek) {
@@ -127,6 +127,79 @@ export async function renderReflection(el, isoWeek) {
 
   el.innerHTML = html;
 
+  document.getElementById('back-btn')?.addEventListener('click', () => navigate('#history'));
+}
+
+// ===== MONTHLY NARRATIVE =====
+const MONTH_NAMES = ['janúar','febrúar','mars','apríl','maí','júní','júlí','ágúst','september','október','nóvember','desember'];
+
+export async function renderMonthly(el, yearMonth) {
+  if (!yearMonth) { navigate('#history'); return; }
+
+  const data = await loadAiSummary(yearMonth);
+  const [year, month] = yearMonth.split('-');
+  const monthName = `${MONTH_NAMES[parseInt(month) - 1]} ${year}`;
+
+  let html = '';
+  html += `<div style="margin-bottom:8px"><button class="back-btn" id="back-btn">← Til baka</button></div>`;
+  html += `<div class="header">
+    <h1>${monthName}</h1>
+    <div class="sub">Mánaðarleg greining</div>
+  </div>`;
+
+  if (!data) {
+    html += `<div class="empty-state" style="padding-top:24px">
+      <div class="empty-icon">📊</div>
+      <div class="empty-text">Engin mánaðargreining ennþá.<br>Hún verður skrifuð í lok mánaðar.</div>
+    </div>`;
+  } else {
+    // Narrative
+    if (data.narrative) {
+      html += `<div class="narrative-section">
+        <div class="narrative-text">${formatNarrative(data.narrative)}</div>
+      </div>`;
+    } else if (data.summary) {
+      html += `<div class="narrative-section">
+        <div class="narrative-text"><p>${data.summary}</p></div>
+      </div>`;
+    }
+
+    // Highlights
+    if (data.highlights?.length) {
+      html += `<div class="ov-card" style="margin-top:16px">
+        <div class="ov-title">✨ Highlights mánaðarins</div>
+        <ul class="narrative-list">${data.highlights.map(h => `<li>${h}</li>`).join('')}</ul>
+      </div>`;
+    }
+
+    // Patterns
+    if (data.patterns?.length) {
+      html += `<div class="ov-card" style="margin-top:12px">
+        <div class="ov-title">🔍 Mynstur</div>
+        <ul class="narrative-list">${data.patterns.map(p => `<li>${p}</li>`).join('')}</ul>
+      </div>`;
+    }
+
+    // Observations
+    if (data.observations?.length) {
+      html += `<div class="ov-card" style="margin-top:12px">
+        <div class="ov-title">🔍 Athuganir</div>
+        <ul class="narrative-list">${data.observations.map(o => `<li>${o}</li>`).join('')}</ul>
+      </div>`;
+    }
+
+    // Recommendations / suggestions
+    if (data.recommendations?.length || data.suggestions?.length) {
+      const items = data.suggestions || data.recommendations;
+      html += `<div class="ov-card" style="margin-top:12px">
+        <div class="ov-title">💡 Tillögur fyrir næsta mánuð</div>
+        <ul class="narrative-list">${items.map(r => `<li>${r}</li>`).join('')}</ul>
+      </div>`;
+    }
+  }
+
+  html += `<div style="height:24px"></div>`;
+  el.innerHTML = html;
   document.getElementById('back-btn')?.addEventListener('click', () => navigate('#history'));
 }
 

@@ -1,6 +1,6 @@
 // history.js — Weekly history browser + mood trends
-import { state, navigate } from '../app.js?v=9';
-import { loadWeek, loadReflection, loadAiSummary } from '../data.js?v=9';
+import { state, navigate } from '../app.js?v=10';
+import { loadWeek, loadReflection, loadAiSummary } from '../data.js?v=10';
 
 export async function renderHistory(el) {
   const weekIndex = [...state.weekIndex].reverse();
@@ -19,11 +19,6 @@ export async function renderHistory(el) {
     if (weeks.length > 1) {
       html += renderMoodChart(weeks, solon, hekla);
     }
-  }
-
-  // Tracker summary
-  if (state.context?.trackers) {
-    html += renderTrackerSummary();
   }
 
   // Week list
@@ -63,27 +58,22 @@ export async function renderHistory(el) {
     html += `</div>`;
   }
 
-  // Monthly AI analysis
+  // Monthly narratives
   const today = new Date().toISOString().split('T')[0];
-  const yearMonth = today.slice(0, 7);
-  const monthlyAi = await loadAiSummary(yearMonth);
-  if (monthlyAi) {
-    html += `<div class="section-title" style="margin-top:20px">Mánaðarleg greining</div>`;
-    html += `<div class="ov-card ov-ai" style="margin:0 0 16px 0">
-      <div class="ov-ai-icon">📊</div>
-      <div class="ov-ai-content">
-        <div class="ov-title">${yearMonth}</div>
-        <div class="ov-ai-text">${monthlyAi.summary}</div>
-        ${monthlyAi.patterns?.length ? `<div class="ov-ai-patterns">
-          <div class="ov-subtitle" style="margin-top:10px">Mynstur:</div>
-          <ul>${monthlyAi.patterns.map(p => `<li>${p}</li>`).join('')}</ul>
-        </div>` : ''}
-        ${monthlyAi.recommendations?.length ? `<div class="ov-ai-recs">
-          <div class="ov-subtitle" style="margin-top:10px">Tillögur:</div>
-          <ul>${monthlyAi.recommendations.map(r => `<li>${r}</li>`).join('')}</ul>
-        </div>` : ''}
-      </div>
-    </div>`;
+  const allMonths = await loadAllMonthlyNarratives(today);
+  if (allMonths.length > 0) {
+    html += `<div class="section-title" style="margin-top:20px">Mánaðargreiningar</div>`;
+    allMonths.forEach(m => {
+      html += `<div class="ov-card" data-month="${m.yearMonth}" style="cursor:pointer;margin-bottom:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-weight:700">${m.monthName}</div>
+            <div style="font-size:12px;color:var(--text-light);margin-top:2px">${truncate(m.summary || '', 80)}</div>
+          </div>
+          <div style="font-size:14px;color:var(--accent)">📖 →</div>
+        </div>
+      </div>`;
+    });
   }
 
   el.innerHTML = html;
@@ -92,6 +82,12 @@ export async function renderHistory(el) {
   el.querySelectorAll('.history-week').forEach(card => {
     card.addEventListener('click', () => {
       navigate(`#reflection/${card.dataset.week}`);
+    });
+  });
+
+  el.querySelectorAll('[data-month]').forEach(card => {
+    card.addEventListener('click', () => {
+      navigate(`#monthly/${card.dataset.month}`);
     });
   });
 }
@@ -136,27 +132,25 @@ function renderMoodChart(weeks, solon, hekla) {
   </div>`;
 }
 
-function renderTrackerSummary() {
-  const t = state.context.trackers;
-  if (!t) return '';
+const MONTH_NAMES = ['janúar','febrúar','mars','apríl','maí','júní','júlí','ágúst','september','október','nóvember','desember'];
 
-  const latest = state.currentWeek;
-  const sEx = t.solon?.exercise?.[latest];
-  const hEx = t.hekla?.exercise?.[latest];
-  const sSoc = t.solon?.social?.[latest];
-  const hSoc = t.hekla?.social?.[latest];
-
-  if (sEx == null && hEx == null) return '';
-
-  return `<div class="hours-card" style="margin-top:14px;margin-bottom:14px">
-    <div class="title">Þessi vika — yfirlit</div>
-    <div style="margin-top:8px">
-      ${sEx != null ? `<div class="hours-row"><span class="cat">Sólon rækt</span><span class="val">${sEx}x</span></div>` : ''}
-      ${hEx != null ? `<div class="hours-row"><span class="cat">Hekla rækt</span><span class="val">${hEx}x</span></div>` : ''}
-      ${sSoc != null ? `<div class="hours-row"><span class="cat">Sólon félagslíf</span><span class="val">${sSoc}x</span></div>` : ''}
-      ${hSoc != null ? `<div class="hours-row"><span class="cat">Hekla félagslíf</span><span class="val">${hSoc}x</span></div>` : ''}
-    </div>
-  </div>`;
+async function loadAllMonthlyNarratives(today) {
+  const results = [];
+  // Check current and previous months
+  const d = new Date(today);
+  for (let i = 0; i < 6; i++) {
+    const ym = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+    const data = await loadAiSummary(ym);
+    if (data) {
+      results.push({
+        yearMonth: ym,
+        monthName: `${MONTH_NAMES[d.getMonth()]} ${d.getFullYear()}`,
+        ...data
+      });
+    }
+    d.setMonth(d.getMonth() - 1);
+  }
+  return results;
 }
 
 function truncate(str, len) {
