@@ -85,7 +85,8 @@ export function exportInbox() {
     const date = new Date(item.timestamp).toLocaleString('is-IS', {
       day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
     });
-    text += `[${catLabels[item.category] || item.category}] ${date}\n`;
+    const personName = item.person === 'solon' ? 'Sólon' : item.person === 'hekla' ? 'Hekla' : '';
+    text += `[${catLabels[item.category] || item.category}]${personName ? ` (${personName})` : ''} ${date}\n`;
     text += `${item.text}\n\n`;
   });
 

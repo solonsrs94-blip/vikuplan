@@ -1,6 +1,6 @@
 // daily.js — Main daily view
-import { state, setDay, navigate } from '../app.js?v=3';
-import { getCheckin, getDayNotes, addDayNote, removeDayNote, toggleDayNote } from '../data.js?v=3';
+import { state, setDay, navigate } from '../app.js?v=4';
+import { getCheckin, getDayNotes, addDayNote, removeDayNote, toggleDayNote } from '../data.js?v=4';
 
 const ICONS = ['🌅', '☀️', '🕐', '🌙'];
 const PERIODS = ['Morgunn', 'Hádegi', 'Síðdegi', 'Kvöld'];
@@ -25,7 +25,6 @@ export function renderDaily(el) {
   const tags = view.tags;
   const alert = view.alert;
   const otherAlert = otherView.alert;
-  const hours = isSolon ? state.weekData.hoursSummary.solon : state.weekData.hoursSummary.hekla;
   const intentions = state.weekData.intentions;
   const intention = isSolon ? intentions.solon : intentions.hekla;
   const needFromOther = state.weekData.needFromOther?.[state.person];
@@ -34,9 +33,6 @@ export function renderDaily(el) {
   const checkin = getCheckin(state.weekData.isoWeek);
   const showCheckinBanner = shouldShowCheckin(todayIdx, checkin, state.person);
 
-  // Get relevant insights for this person
-  const insights = getRelevantInsights();
-
   let html = '';
 
   // Header
@@ -44,24 +40,6 @@ export function renderDaily(el) {
     <h1>Vikuplanið þitt, ${name}</h1>
     <div class="sub">${state.weekData.dateRange} · ${state.weekData.shiftPattern === 'A' ? 'Vika A (þung)' : 'Vika B (létt)'}</div>
   </div>`;
-
-  // Intention
-  html += `<div class="intention">
-    <div class="label">Ásetningur vikunnar</div>
-    <div class="text">${intention}</div>
-    <div class="saman">Saman: ${intentions.saman}</div>
-    ${needFromOther ? `<div class="need">💬 ${otherName} þarf frá þér: ${needFromOther}</div>` : ''}
-  </div>`;
-
-  // AI Insights
-  if (insights.length > 0) {
-    insights.forEach(ins => {
-      html += `<div class="insight-card">
-        <span class="insight-icon">${ins.type === 'nudge' ? '💡' : ins.type === 'flag' ? '⚠️' : '📊'}</span>
-        <span>${ins.text}</span>
-      </div>`;
-    });
-  }
 
   // Day picker
   html += `<div class="day-picker">`;
@@ -164,20 +142,13 @@ export function renderDaily(el) {
     </div>
   </div>`;
 
-  // Hours summary
-  html += `<details class="hours-card">
-    <summary style="cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
-      <span class="title" style="margin:0">Vikuyfirlit — klukkustundir</span>
-      <span style="font-size:12px;color:var(--text-light)">▼</span>
-    </summary>
-    <div style="margin-top:12px">`;
-  hours.forEach(h => {
-    html += `<div class="hours-row">
-      <span class="cat">${h.category}</span>
-      <span class="val">${h.value}</span>
-    </div>`;
-  });
-  html += `</div></details>`;
+  // Intention (at bottom)
+  html += `<div class="intention">
+    <div class="label">Ásetningur vikunnar</div>
+    <div class="text">${intention}</div>
+    <div class="saman">Saman: ${intentions.saman}</div>
+    ${needFromOther ? `<div class="need">💬 ${otherName} þarf frá þér: ${needFromOther}</div>` : ''}
+  </div>`;
 
   html += `<div class="swipe-hint">Strjúktu til að skipta á milli daga</div>`;
 
@@ -262,9 +233,3 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-function getRelevantInsights() {
-  if (!state.context || !state.context.insights) return [];
-  return state.context.insights.filter(ins =>
-    !ins.resolved && (ins.person === state.person || ins.person === 'both')
-  ).slice(0, 2);
-}

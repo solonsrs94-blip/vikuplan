@@ -1,7 +1,7 @@
 // yfirlit.js — Overview dashboard with visual stats, trends, and AI insights
-import { state, navigate } from '../app.js?v=3';
-import { loadAiSummary, getVikuord, setVikuord, lsGet, lsSet, exportAllUserData } from '../data.js?v=3';
-import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js?v=3';
+import { state, navigate } from '../app.js?v=4';
+import { loadAiSummary, lsGet, lsSet, exportAllUserData } from '../data.js?v=4';
+import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js?v=4';
 
 const DATE_IDEAS = [
   'Farið á göngu á Úlfarsfellið',
@@ -195,24 +195,6 @@ export async function renderYfirlit(el) {
     html += renderSeasonWheel(lt.events, today);
   }
 
-  // 11. Vikuord/emoji
-  const savedVikuord = getVikuord(currentWeek) || ctx?.vikuord?.[currentWeek] || {};
-  html += `<div class="ov-card">
-    <div class="ov-title">Vikuorð</div>
-    <div class="ov-subtitle">Veldu eitt orð eða emoji sem lýsir vikunni</div>
-    <div class="vikuord-inputs">
-      <div class="vikuord-row">
-        <span class="vikuord-person" style="color:#2563EB">Sólon</span>
-        <input class="vikuord-input" id="vikuord-solon" value="${savedVikuord.solon || ''}" placeholder="t.d. 💪 eða 'þreytt'">
-      </div>
-      <div class="vikuord-row">
-        <span class="vikuord-person" style="color:#059669">Hekla</span>
-        <input class="vikuord-input" id="vikuord-hekla" value="${savedVikuord.hekla || ''}" placeholder="t.d. 🌟 eða 'gott'">
-      </div>
-    </div>
-    ${renderVikuordHistory(ctx?.vikuord)}
-  </div>`;
-
   // 12. Personal area link
   const personName = state.person === 'solon' ? 'Sólon' : 'Hekla';
   html += `<div class="ov-card" data-action="personal" style="cursor:pointer">
@@ -236,27 +218,6 @@ export async function renderYfirlit(el) {
     </div>
   </div>`;
 
-  // 13. Monthly AI analysis
-  const yearMonth = today.slice(0, 7); // "2026-03"
-  const monthlyAi = await loadAiSummary(yearMonth);
-  if (monthlyAi) {
-    html += `<div class="ov-card ov-ai">
-      <div class="ov-ai-icon">📊</div>
-      <div class="ov-ai-content">
-        <div class="ov-title">Mánaðarleg greining</div>
-        <div class="ov-ai-text">${monthlyAi.summary}</div>
-        ${monthlyAi.patterns?.length ? `<div class="ov-ai-patterns">
-          <div class="ov-subtitle" style="margin-top:10px">Mynstur:</div>
-          <ul>${monthlyAi.patterns.map(p => `<li>${p}</li>`).join('')}</ul>
-        </div>` : ''}
-        ${monthlyAi.recommendations?.length ? `<div class="ov-ai-recs">
-          <div class="ov-subtitle" style="margin-top:10px">Tillögur:</div>
-          <ul>${monthlyAi.recommendations.map(r => `<li>${r}</li>`).join('')}</ul>
-        </div>` : ''}
-      </div>
-    </div>`;
-  }
-
   // Export all data button
   html += `<div class="ov-card" style="text-align:center">
     <button class="inbox-export" id="export-all-data" style="width:100%">💾 Exporta öll gögn</button>
@@ -271,43 +232,12 @@ export async function renderYfirlit(el) {
   bindEvents(el);
 }
 
-function renderVikuordHistory(vikuord) {
-  if (!vikuord) return '';
-  const weeks = Object.keys(vikuord).sort().reverse().slice(0, 8);
-  if (weeks.length === 0) return '';
-
-  let items = weeks.map(w => {
-    const s = vikuord[w]?.solon;
-    const h = vikuord[w]?.hekla;
-    if (!s && !h) return '';
-    const num = w.split('-W')[1];
-    return `<div class="vikuord-hist-item">
-      <span class="vikuord-hist-week">V${num}</span>
-      ${s ? `<span class="vikuord-hist-val" style="color:#2563EB">${s}</span>` : ''}
-      ${h ? `<span class="vikuord-hist-val" style="color:#059669">${h}</span>` : ''}
-    </div>`;
-  }).filter(Boolean).join('');
-
-  if (!items) return '';
-  return `<div class="vikuord-history">${items}</div>`;
-}
-
 function bindEvents(el) {
   const currentWeek = state.currentWeek;
 
   // Navigation cards
   el.querySelector('[data-action="vd"]')?.addEventListener('click', () => navigate('#vd'));
   el.querySelector('[data-action="personal"]')?.addEventListener('click', () => navigate('#personal'));
-
-  // Vikuord inputs
-  const sInput = el.querySelector('#vikuord-solon');
-  const hInput = el.querySelector('#vikuord-hekla');
-  if (sInput) {
-    sInput.addEventListener('change', () => setVikuord(currentWeek, 'solon', sInput.value));
-  }
-  if (hInput) {
-    hInput.addEventListener('change', () => setVikuord(currentWeek, 'hekla', hInput.value));
-  }
 
   // Export all data
   el.querySelector('#export-all-data')?.addEventListener('click', () => {

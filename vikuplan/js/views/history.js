@@ -1,6 +1,6 @@
 // history.js — Weekly history browser + mood trends
-import { state, navigate } from '../app.js?v=3';
-import { loadWeek, loadReflection } from '../data.js?v=3';
+import { state, navigate } from '../app.js?v=4';
+import { loadWeek, loadReflection, loadAiSummary } from '../data.js?v=4';
 
 export async function renderHistory(el) {
   const weekIndex = [...state.weekIndex].reverse();
@@ -61,6 +61,29 @@ export async function renderHistory(el) {
       </div>`;
     }
     html += `</div>`;
+  }
+
+  // Monthly AI analysis
+  const today = new Date().toISOString().split('T')[0];
+  const yearMonth = today.slice(0, 7);
+  const monthlyAi = await loadAiSummary(yearMonth);
+  if (monthlyAi) {
+    html += `<div class="section-title" style="margin-top:20px">Mánaðarleg greining</div>`;
+    html += `<div class="ov-card ov-ai" style="margin:0 0 16px 0">
+      <div class="ov-ai-icon">📊</div>
+      <div class="ov-ai-content">
+        <div class="ov-title">${yearMonth}</div>
+        <div class="ov-ai-text">${monthlyAi.summary}</div>
+        ${monthlyAi.patterns?.length ? `<div class="ov-ai-patterns">
+          <div class="ov-subtitle" style="margin-top:10px">Mynstur:</div>
+          <ul>${monthlyAi.patterns.map(p => `<li>${p}</li>`).join('')}</ul>
+        </div>` : ''}
+        ${monthlyAi.recommendations?.length ? `<div class="ov-ai-recs">
+          <div class="ov-subtitle" style="margin-top:10px">Tillögur:</div>
+          <ul>${monthlyAi.recommendations.map(r => `<li>${r}</li>`).join('')}</ul>
+        </div>` : ''}
+      </div>
+    </div>`;
   }
 
   el.innerHTML = html;
