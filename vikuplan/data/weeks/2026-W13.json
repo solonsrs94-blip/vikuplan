@@ -46,7 +46,8 @@
           "afternoon": "Þú sækir VD kl. 15:30.",
           "evening": "Kvöldvakt 16:00–23:00. Hekla er ein heima með VD."
         },
-        "otherContext": "Hekla er í vinnu 8–16, ein heima á kvöldin."
+        "otherContext": "Hekla er í vinnu 8–16, ein heima á kvöldin.",
+        "dayInsight": "Þetta er bráðabirgðaverkefni — sendu kennara emailið FYRST í dag, áður en þú ferð í annað."
       },
       "hekla": {
         "tags": ["vinna", "ein m/VD"],
@@ -74,7 +75,8 @@
           "afternoon": "Þú sækir VD kl. 15:30. Hekla kemur heim úr vinnu.",
           "evening": "Ef veðrið leyfir: göngutúr á hamborgarabúlluna með fjölskyldunni! Ef ekki: heimatilbúinn pizza heima."
         },
-        "otherContext": "Hekla er í vinnu 8–16. Göngutúr saman ef veður leyfir."
+        "otherContext": "Hekla er í vinnu 8–16. Göngutúr saman ef veður leyfir.",
+        "dayInsight": "Göngutúrinn í kvöld er fyrsta skipulagða saman-activity ykkar — ef veðrið leyfir ekki, gerið pizzuna saman í staðinn. Ekki bara panta."
       },
       "hekla": {
         "tags": ["vinna", "göngutúr?", "saman"],
@@ -85,7 +87,8 @@
           "afternoon": "Heim úr vinnu. Sólon búinn að sækja VD.",
           "evening": "Ef veðrið leyfir: göngutúr á hamborgarabúlluna með fjölskyldunni! Ef ekki: heimatilbúinn pizza heima saman."
         },
-        "otherContext": "Sólon er í persónulegu verkefni á daginn, sækir VD kl. 15:30."
+        "otherContext": "Sólon er í persónulegu verkefni á daginn, sækir VD kl. 15:30.",
+        "dayInsight": "Göngutúrinn er ykkar fyrsta skipulagða kvöld saman — njótið þess!"
       }
     },
     {
@@ -130,7 +133,8 @@
           "afternoon": "Sæktu VD kl. 15:30.",
           "evening": "Kvöldvakt 16:00–23:00. Hekla er ein heima með VD."
         },
-        "otherContext": "Hekla er í vinnu 8–16, ein heima á kvöldin."
+        "otherContext": "Hekla er í vinnu 8–16, ein heima á kvöldin.",
+        "dayInsight": "Námskeið kl. 9 — ekki sofna af þér! Síðast þegar þú áttir morgunverkefni varst þú seinn."
       },
       "hekla": {
         "tags": ["vinna", "ein m/VD"],

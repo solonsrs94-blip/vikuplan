@@ -1,6 +1,6 @@
 // daily.js — Main daily view
-import { state, setDay, navigate } from '../app.js?v=13';
-import { getCheckin, getDayNotes, addDayNote, removeDayNote, toggleDayNote } from '../data.js?v=13';
+import { state, setDay, navigate } from '../app.js?v=14';
+import { getCheckin, getDayNotes, addDayNote, removeDayNote, toggleDayNote } from '../data.js?v=14';
 
 const ICONS = ['🌅', '☀️', '🕐', '🌙'];
 const PERIODS = ['Morgunn', 'Hádegi', 'Síðdegi', 'Kvöld'];
@@ -76,6 +76,15 @@ export function renderDaily(el) {
   // Alert about the OTHER person's load
   if (otherAlert) {
     html += `<div class="alert-other">💛 ${otherName}: ${otherAlert}</div>`;
+  }
+
+  // AI day insight (only if exists for this person and day)
+  const dayInsight = view.dayInsight;
+  if (dayInsight) {
+    html += `<div class="day-insight">
+      <span class="day-insight-icon">🤖</span>
+      <span class="day-insight-text">${dayInsight}</span>
+    </div>`;
   }
 
   // Check-in banner (Wed-Sat)

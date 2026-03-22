@@ -1107,3 +1107,26 @@ body {
 .narrative-list li:last-child {
   border-bottom: none;
 }
+
+/* Day insight (AI) */
+.day-insight {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 14px;
+  margin: 8px 0;
+  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  border: 1px solid #93C5FD;
+  border-left: 3px solid #2563EB;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #1E40AF;
+}
+.day-insight-icon {
+  flex-shrink: 0;
+  font-size: 16px;
+}
+.day-insight-text {
+  flex: 1;
+}
