@@ -1,7 +1,7 @@
 // yfirlit.js — Overview dashboard with visual stats, trends, and AI insights
-import { state, navigate } from '../app.js?v=6';
-import { loadAiSummary, lsGet, lsSet, exportAllUserData } from '../data.js?v=6';
-import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js?v=6';
+import { state, navigate } from '../app.js?v=7';
+import { loadAiSummary, lsGet, lsSet, exportAllUserData } from '../data.js?v=7';
+import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js?v=7';
 
 const DATE_IDEAS = [
   // Útivist (barnvænt)
@@ -58,30 +58,7 @@ export async function renderYfirlit(el) {
     </div>`;
   }
 
-  // 2. VD Milestones (moved up)
-  if (lt?.profiles?.vd) {
-    const born = new Date(lt.profiles.vd.born);
-    const now = new Date(today);
-    const totalDays = Math.floor((now - born) / 86400000);
-    const months = Math.floor(totalDays / 30.44);
-    const remainDays = totalDays - Math.floor(months * 30.44);
-
-    const funFacts = [
-      `${lt.profiles.vd.name} hefur lifað í ${totalDays} daga!`,
-      `Það eru ${Math.floor((new Date(born.getFullYear() + 2, born.getMonth(), born.getDate()) - now) / 86400000)} dagar þar til hún verður 2 ára`,
-    ];
-
-    html += `<div class="ov-card vd-card" data-action="vd" style="cursor:pointer">
-      <div class="vd-emoji">👶</div>
-      <div class="vd-info">
-        <div class="ov-title">${lt.profiles.vd.name} <span style="font-size:12px;color:var(--text-light)">→</span></div>
-        <div class="vd-age">${months} mánaða${remainDays > 0 ? ` og ${Math.round(remainDays)} daga` : ''}</div>
-        <div class="vd-fun">${funFacts[0]}</div>
-      </div>
-    </div>`;
-  }
-
-  // 3. Heatmap
+  // 2. Heatmap
   const loadScores = ctx?.weeklyLoadScores?.[currentWeek];
   if (loadScores && week) {
     const dayLabels = week.days.map(d => d.name.slice(0, 3));
@@ -208,19 +185,18 @@ export async function renderYfirlit(el) {
     html += renderSeasonWheel(lt.events, today);
   }
 
-  // 12. Personal area link
-  const personName = state.person === 'solon' ? 'Sólon' : 'Hekla';
-  html += `<div class="ov-card" data-action="personal" style="cursor:pointer">
+  // Tímalína link
+  html += `<div class="ov-card" data-action="timeline" style="cursor:pointer">
     <div style="display:flex;align-items:center;gap:12px">
-      <div style="font-size:22px">📋</div>
+      <div style="font-size:22px">🗓️</div>
       <div>
-        <div class="ov-title">Mitt svæði — ${personName} <span style="font-size:12px;color:var(--text-light)">→</span></div>
-        <div class="ov-subtitle">Hugmyndir, heilsa og verkefni</div>
+        <div class="ov-title">Tímalína <span style="font-size:12px;color:var(--text-light)">→</span></div>
+        <div class="ov-subtitle">Allir atburðir og tímamót</div>
       </div>
     </div>
   </div>`;
 
-  // 13. Random date idea
+  // 12. Random date idea
   const randomIdea = DATE_IDEAS[Math.floor(Math.random() * DATE_IDEAS.length)];
   html += `<div class="ov-card date-idea-card">
     <div class="date-idea-icon">💡</div>
@@ -248,9 +224,8 @@ export async function renderYfirlit(el) {
 function bindEvents(el) {
   const currentWeek = state.currentWeek;
 
-  // Navigation cards
-  el.querySelector('[data-action="vd"]')?.addEventListener('click', () => navigate('#vd'));
-  el.querySelector('[data-action="personal"]')?.addEventListener('click', () => navigate('#personal'));
+  // Navigation
+  el.querySelector('[data-action="timeline"]')?.addEventListener('click', () => navigate('#timeline'));
 
   // Export all data
   el.querySelector('#export-all-data')?.addEventListener('click', () => {

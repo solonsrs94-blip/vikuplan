@@ -2,16 +2,16 @@
 import {
   loadWeekIndex, loadWeek, loadLongTerm, loadContext,
   getSelectedPerson, setSelectedPerson, getInboxItems
-} from './data.js?v=6';
-import { renderDaily } from './views/daily.js?v=6';
-import { renderInbox } from './views/inbox.js?v=6';
-import { renderCheckin } from './views/checkin.js?v=6';
-import { renderTimeline } from './views/timeline.js?v=6';
-import { renderHistory } from './views/history.js?v=6';
-import { renderReflection } from './views/reflection.js?v=6';
-import { renderYfirlit } from './views/yfirlit.js?v=6';
-import { renderVd } from './views/vd.js?v=6';
-import { renderPersonal } from './views/personal.js?v=6';
+} from './data.js?v=7';
+import { renderDaily } from './views/daily.js?v=7';
+import { renderInbox } from './views/inbox.js?v=7';
+import { renderCheckin } from './views/checkin.js?v=7';
+import { renderTimeline } from './views/timeline.js?v=7';
+import { renderHistory } from './views/history.js?v=7';
+import { renderReflection } from './views/reflection.js?v=7';
+import { renderYfirlit } from './views/yfirlit.js?v=7';
+import { renderVd } from './views/vd.js?v=7';
+import { renderPersonal } from './views/personal.js?v=7';
 
 // Global state
 export const state = {
@@ -129,7 +129,7 @@ function route() {
     case 'reflection': renderReflection(appEl, param); break;
     case 'yfirlit': renderYfirlit(appEl); break;
     case 'vd': renderVd(appEl); break;
-    case 'personal': renderPersonal(appEl); break;
+    case 'personal': renderPersonal(appEl, 'overview'); break;
     default: renderDaily(appEl); break;
   }
 }

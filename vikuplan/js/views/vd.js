@@ -1,7 +1,7 @@
 // vd.js — Viktoría Dís view
-import { state, navigate } from '../app.js?v=6';
-import { getVdNotes, addVdNote, removeVdNote, getVdGoals, addVdGoal, toggleVdGoal, removeVdGoal, lsGet, lsSet } from '../data.js?v=6';
-import { showToast } from '../app.js?v=6';
+import { state, navigate } from '../app.js?v=7';
+import { getVdNotes, addVdNote, removeVdNote, getVdGoals, addVdGoal, toggleVdGoal, removeVdGoal, lsGet, lsSet } from '../data.js?v=7';
+import { showToast } from '../app.js?v=7';
 
 const NOTE_CATS = [
   { id: 'observation', label: '💬 Athugasemd' },
@@ -136,7 +136,7 @@ export function renderVd(el) {
   el.innerHTML = html;
 
   // Bind events
-  el.querySelector('.back-btn')?.addEventListener('click', () => navigate('#yfirlit'));
+  el.querySelector('.back-btn')?.addEventListener('click', () => navigate('#personal'));
 
   // Growth chart
   el.querySelector('#growth-add')?.addEventListener('click', () => {

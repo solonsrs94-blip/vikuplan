@@ -1,6 +1,6 @@
 // reflection.js — View a specific week's reflection
-import { state, navigate } from '../app.js?v=6';
-import { loadReflection, loadWeek } from '../data.js?v=6';
+import { state, navigate } from '../app.js?v=7';
+import { loadReflection, loadWeek } from '../data.js?v=7';
 
 export async function renderReflection(el, isoWeek) {
   if (!isoWeek) {

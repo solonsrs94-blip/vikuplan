@@ -1,11 +1,11 @@
 // personal.js — Personal dashboard with card navigation to sub-views
-import { state, navigate } from '../app.js?v=6';
-import { showToast } from '../app.js?v=6';
+import { state, navigate } from '../app.js?v=7';
+import { showToast } from '../app.js?v=7';
 import {
   getTodos, addTodo, toggleTodo, removeTodo,
   getExerciseLog, addExerciseEntry,
   lsGet, lsSet
-} from '../data.js?v=6';
+} from '../data.js?v=7';
 
 // ===== SUB-VIEW STATE =====
 let subView = 'overview'; // overview | ideas | health | gym | diet | todos
@@ -59,11 +59,29 @@ function renderOverview(el, person, name) {
   const thisWeekEx = exercise.filter(e => e.date >= weekStart).length;
   const openTodos = todos.filter(t => !t.done).length;
 
-  let html = `<div style="margin-bottom:8px"><button class="back-btn" data-action="back">← Til baka</button></div>`;
-  html += `<div class="header">
+  let html = `<div class="header">
     <h1>Mitt svæði — ${name}</h1>
     <div class="sub">Hugmyndir, heilsa og verkefni</div>
   </div>`;
+
+  // VD card
+  const lt = state.longTerm;
+  if (lt?.profiles?.vd) {
+    const born = new Date(lt.profiles.vd.born);
+    const now = new Date();
+    const totalDays = Math.floor((now - born) / 86400000);
+    const months = Math.floor(totalDays / 30.44);
+    const remainDays = totalDays - Math.floor(months * 30.44);
+    html += `<div class="ov-card personal-card" data-goto="vd" style="cursor:pointer">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="font-size:28px">👶</div>
+        <div style="flex:1">
+          <div class="ov-title">${lt.profiles.vd.name} <span style="font-size:12px;color:var(--text-light)">→</span></div>
+          <div class="ov-subtitle">${months} mánaða${remainDays > 0 ? ` og ${Math.round(remainDays)} daga` : ''} · ${totalDays} daga</div>
+        </div>
+      </div>
+    </div>`;
+  }
 
   // Hugmyndabanki card
   html += `<div class="ov-card personal-card" data-goto="ideas" style="cursor:pointer">
@@ -100,11 +118,14 @@ function renderOverview(el, person, name) {
 
   el.innerHTML = html;
 
-  el.querySelector('.back-btn')?.addEventListener('click', () => navigate('#yfirlit'));
   el.querySelectorAll('[data-goto]').forEach(card => {
     card.addEventListener('click', () => {
-      subView = card.dataset.goto;
-      renderPersonal(el);
+      if (card.dataset.goto === 'vd') {
+        navigate('#vd');
+      } else {
+        subView = card.dataset.goto;
+        renderPersonal(el);
+      }
     });
   });
 }

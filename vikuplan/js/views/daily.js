@@ -1,6 +1,6 @@
 // daily.js — Main daily view
-import { state, setDay, navigate } from '../app.js?v=6';
-import { getCheckin, getDayNotes, addDayNote, removeDayNote, toggleDayNote } from '../data.js?v=6';
+import { state, setDay, navigate } from '../app.js?v=7';
+import { getCheckin, getDayNotes, addDayNote, removeDayNote, toggleDayNote } from '../data.js?v=7';
 
 const ICONS = ['🌅', '☀️', '🕐', '🌙'];
 const PERIODS = ['Morgunn', 'Hádegi', 'Síðdegi', 'Kvöld'];

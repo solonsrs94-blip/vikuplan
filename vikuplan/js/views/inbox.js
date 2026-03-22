@@ -1,6 +1,6 @@
 // inbox.js — Quick notes / inbox view
-import { getInboxItems, addInboxItem, removeInboxItem, exportInbox } from '../data.js?v=6';
-import { state, showToast, updateNavBadge } from '../app.js?v=6';
+import { getInboxItems, addInboxItem, removeInboxItem, exportInbox } from '../data.js?v=7';
+import { state, showToast, updateNavBadge } from '../app.js?v=7';
 
 const CATEGORIES = [
   { id: 'observation', label: '💬 Athugasemd', placeholder: 'Hvað gerðist?' },
