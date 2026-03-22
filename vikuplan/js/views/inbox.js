@@ -55,8 +55,11 @@ export function renderInbox(el) {
     });
     html += `</div>`;
 
-    // Export button
-    html += `<button class="inbox-export" id="inbox-export">📋 Flytja út fyrir sunnudag</button>`;
+    // Export buttons
+    html += `<div class="inbox-export-row">
+      <button class="inbox-export" id="inbox-export">📋 Afrita á klippiborð</button>
+      <button class="inbox-export inbox-export-file" id="inbox-export-file">💾 Vista sem skrá</button>
+    </div>`;
   } else {
     html += `<div class="empty-state">
       <div class="empty-icon">📝</div>
@@ -98,7 +101,6 @@ export function renderInbox(el) {
     navigator.clipboard.writeText(text).then(() => {
       showToast('Afritað á klippiborð!');
     }).catch(() => {
-      // Fallback: show in a textarea
       const ta = document.createElement('textarea');
       ta.value = text;
       ta.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;height:60%;z-index:999;padding:16px;font-size:13px;';
@@ -106,6 +108,19 @@ export function renderInbox(el) {
       ta.select();
       ta.addEventListener('blur', () => ta.remove());
     });
+  });
+
+  document.getElementById('inbox-export-file')?.addEventListener('click', () => {
+    const items = getInboxItems();
+    const json = JSON.stringify(items, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `inbox-export-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Skrá vistuð!');
   });
 
   // Handle Enter key in textarea

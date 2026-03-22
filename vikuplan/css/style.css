@@ -453,8 +453,11 @@ body {
   padding: 4px;
 }
 
+.inbox-export-row {
+  display: flex; gap: 8px; margin-top: 16px;
+}
 .inbox-export {
-  width: 100%; padding: 12px; margin-top: 16px;
+  flex: 1; padding: 12px; margin-top: 0;
   background: var(--card); color: var(--accent); border: 1.5px solid var(--accent);
   border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif;
   font-size: 14px; font-weight: 600; cursor: pointer;

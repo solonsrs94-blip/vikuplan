@@ -48,18 +48,50 @@
       "person": "both",
       "text": "Munaðarnesferð 27/3–1/4 skarast við Viku A. Er Sólon að vinna eða tekur frí?",
       "resolved": false
+    },
+    {
+      "id": "ins-007",
+      "weekGenerated": "2026-W13",
+      "type": "nudge",
+      "person": "solon",
+      "text": "Sólon ætlar að hitta vini í golfhermi/æfingasvæði — minna á að bóka og bjóða félaga.",
+      "resolved": false
+    },
+    {
+      "id": "ins-008",
+      "weekGenerated": "2026-W13",
+      "type": "flag",
+      "person": "solon",
+      "text": "Sólon reynir losa sig við vaktir mán og fim — vikuplanið þarf að uppfærast ef það tekst.",
+      "resolved": false
+    },
+    {
+      "id": "ins-009",
+      "weekGenerated": "2026-W13",
+      "type": "nudge",
+      "person": "solon",
+      "text": "Sólon þarf að senda kennara email um hópverkefni — bráðabirgðamál.",
+      "resolved": false
+    },
+    {
+      "id": "ins-010",
+      "weekGenerated": "2026-W13",
+      "type": "pattern",
+      "person": "both",
+      "text": "Göngutúr á hamborgarabúlluna áætlaður á þri — fyrsta skipulagða saman-activity (í stað sjónvarps). Fylgjast með hvort þetta gangi.",
+      "resolved": false
     }
   ],
   "trackers": {
     "solon": {
-      "exercise": { "2026-W12": 3 },
-      "social": { "2026-W12": 1 },
-      "coupleTime": { "2026-W12": 3 }
+      "exercise": { "2026-W12": 3, "2026-W13": 0 },
+      "social": { "2026-W12": 1, "2026-W13": 0 },
+      "coupleTime": { "2026-W12": 3, "2026-W13": 0 }
     },
     "hekla": {
-      "exercise": { "2026-W12": 1 },
-      "social": { "2026-W12": 1 },
-      "coupleTime": { "2026-W12": 3 }
+      "exercise": { "2026-W12": 1, "2026-W13": 0 },
+      "social": { "2026-W12": 1, "2026-W13": 0 },
+      "coupleTime": { "2026-W12": 3, "2026-W13": 0 }
     }
   },
   "moodHistory": {
@@ -67,13 +99,18 @@
     "hekla": {}
   },
   "flags": [
-    "Munaðarnesferð eftir 5 daga — þarf áætlun",
-    "Eigin tími Heklu er mun minni en Sólons"
+    "Munaðarnesferð 27. mars — versla á leiðinni, leggja af stað 17–18",
+    "Sólon reynir losa sig við vaktir mán+fim",
+    "Sólon þarf senda kennara email vegna hópverkefnis"
   ],
   "weeklyLoadScores": {
     "2026-W12": {
       "solon": [2, 4, 2, 2, 5, 5, 4],
       "hekla": [3, 3, 3, 3, 4, 5, 4]
+    },
+    "2026-W13": {
+      "solon": [4, 2, 2, 4, 2, 1, 1],
+      "hekla": [3, 3, 3, 3, 3, 1, 1]
     }
   },
   "intentionCompletion": {
@@ -85,14 +122,16 @@
     "hekla": "2026-03-16"
   },
   "streaks": {
-    "planningStreak": 1,
+    "planningStreak": 2,
     "checkinStreak": 0
   },
   "vikuord": {},
   "togetherHours": {
-    "2026-W12": 20
+    "2026-W12": 20,
+    "2026-W13": 25
   },
   "aiWeeklySummary": {
-    "2026-W12": "Fyrsta vikan skipulögð! Viku A er þung hjá Sóloni (68 klst álag með vinnu og námi). Hekla er ein með VD stóran hluta helgarinnar (~30 klst). Bæði nefndu að þau vilja hætta að glápa á sjónvarpið á kvöldin. Sólon vill hitta vini en hefur ekki gert áætlun um það."
+    "2026-W12": "Fyrsta vikan skipulögð! Viku A er þung hjá Sóloni (68 klst álag með vinnu og námi). Hekla er ein með VD stóran hluta helgarinnar (~30 klst). Bæði nefndu að þau vilja hætta að glápa á sjónvarpið á kvöldin. Sólon vill hitta vini en hefur ekki gert áætlun um það.",
+    "2026-W13": "Vika B — mun léttari vika hjá Sóloni (14 klst vinna vs 39). Sólon skiptir fókus milli skóla og persónulegs verkefnis (fjármálaterminal). Námskeið fimmtudag 9–12. Reynir losa sig við vaktir. Göngutúr á hamborgarabúlluna skipulagður á þriðjudag (fyrsta skipulagða couple-activity). Hekla fer í WC á miðvikudag. Munaðarnesferð hefst föstudaginn — versla á leiðinni, leggja af stað 17–18."
   }
 }

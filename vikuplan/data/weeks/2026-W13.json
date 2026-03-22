@@ -1,0 +1,232 @@
+{
+  "week": 13,
+  "year": 2026,
+  "isoWeek": "2026-W13",
+  "dateRange": "23.–29. mars 2026",
+  "shiftPattern": "B",
+  "intentions": {
+    "solon": "Finna hóp í skólaverkefni (senda kennara email). Skipta dögum milli skóla og persónulegs verkefnis (fjármálaterminal). Rækt 2x + brétti á öðrum dögum. Hitta vini 1x (golfhermir/æfingasvæði). Námskeið fim 26. mars kl. 9–12.",
+    "hekla": "WC í hádegi á miðvikudag. Athuga golfkúlur í vikunni.",
+    "saman": "Göngutúr á hamborgarabúlluna ef veður leyfir (þri). Munaðarnesferð frá föstudegi."
+  },
+  "needFromOther": {
+    "solon": "",
+    "hekla": ""
+  },
+  "coupleGoal": "Göngutúr á hamborgarabúlluna á þriðjudag",
+  "hoursSummary": {
+    "solon": [
+      { "category": "Vinna", "value": "14 klst (ef vaktir standa)" },
+      { "category": "Nám/verkefni", "value": "~25–30 klst" },
+      { "category": "Rækt", "value": "~4–5 klst" },
+      { "category": "Með VD (ein)", "value": "~8 klst" },
+      { "category": "Félagslíf", "value": "~2 klst" },
+      { "category": "Saman (S+H)", "value": "~25 klst" }
+    ],
+    "hekla": [
+      { "category": "Vinna", "value": "40 klst" },
+      { "category": "Rækt", "value": "~1–2 klst" },
+      { "category": "Með VD (ein)", "value": "~8 klst" },
+      { "category": "Félagslíf", "value": "~0 klst" },
+      { "category": "Saman (S+H)", "value": "~25 klst" }
+    ]
+  },
+  "days": [
+    {
+      "name": "Mánudagur",
+      "date": "23. mars",
+      "isoDate": "2026-03-23",
+      "dinner": "Hekla velur sjálf (S á vakt)",
+      "solon": {
+        "tags": ["skóli", "brétti", "sækja VD", "kvöldvakt"],
+        "alert": "Kvöldvakt 16:00–23:00 (reynir losa sig)",
+        "blocks": {
+          "morning": "Þú skutlar VD til dagmömmu kl. 7:30. Skóladagur — byrjaðu á að senda kennara email vegna hópverkefnisins. Skoðaðu verkefnið og byrjaðu að plana.",
+          "midday": "Nám alla daginn. Farðu á bréttið heima um tvíleytið til að hreyfa þig.",
+          "afternoon": "Þú sækir VD kl. 15:30.",
+          "evening": "Kvöldvakt 16:00–23:00. Hekla er ein heima með VD."
+        },
+        "otherContext": "Hekla er í vinnu 8–16, ein heima á kvöldin."
+      },
+      "hekla": {
+        "tags": ["vinna", "ein m/VD"],
+        "alert": null,
+        "blocks": {
+          "morning": "Þú ferð í vinnu. Sólon skutlar VD til dagmömmu.",
+          "midday": "Vinnudagur hjá Advania.",
+          "afternoon": "Sólon sækir VD kl. 15:30 og fer á kvöldvakt kl. 16.",
+          "evening": "Þú ert ein heima með VD í kvöld. Veldu þér kvöldmat. Sólon kemur heim um 23."
+        },
+        "otherContext": "Sólon er í skólanámi á daginn, á kvöldvakt 16–23."
+      }
+    },
+    {
+      "name": "Þriðjudagur",
+      "date": "24. mars",
+      "isoDate": "2026-03-24",
+      "dinner": "Göngutúr + hamborgarabúllan EÐA heimatilbúinn pizza",
+      "solon": {
+        "tags": ["persónulegt verkefni", "rækt", "göngutúr?"],
+        "alert": null,
+        "blocks": {
+          "morning": "Þú skutlar VD kl. 7:30. Í dag er persónulegt verkefni — fjármálaterminalinn. Byrjaðu á þessu í stað skólanáms.",
+          "midday": "Fjármálaterminal alla daginn. Farðu í ræktina um tvíleytið (1 af 2x).",
+          "afternoon": "Þú sækir VD kl. 15:30. Hekla kemur heim úr vinnu.",
+          "evening": "Ef veðrið leyfir: göngutúr á hamborgarabúlluna með fjölskyldunni! Ef ekki: heimatilbúinn pizza heima."
+        },
+        "otherContext": "Hekla er í vinnu 8–16. Göngutúr saman ef veður leyfir."
+      },
+      "hekla": {
+        "tags": ["vinna", "göngutúr?", "saman"],
+        "alert": null,
+        "blocks": {
+          "morning": "Þú ferð í vinnu. Sólon skutlar VD.",
+          "midday": "Vinnudagur hjá Advania.",
+          "afternoon": "Heim úr vinnu. Sólon búinn að sækja VD.",
+          "evening": "Ef veðrið leyfir: göngutúr á hamborgarabúlluna með fjölskyldunni! Ef ekki: heimatilbúinn pizza heima saman."
+        },
+        "otherContext": "Sólon er í persónulegu verkefni á daginn, sækir VD kl. 15:30."
+      }
+    },
+    {
+      "name": "Miðvikudagur",
+      "date": "25. mars",
+      "isoDate": "2026-03-25",
+      "dinner": "Butter chicken með hrísgrjónum og brauði",
+      "solon": {
+        "tags": ["skóli", "brétti", "sækja VD"],
+        "alert": null,
+        "blocks": {
+          "morning": "Þú skutlar VD kl. 7:30. Skóladagur — fylgstu með svari frá kennara. Vinndu í hópverkefninu ef hópurinn er staðfestur, annars haltu áfram að plana.",
+          "midday": "Nám alla daginn. Farðu á bréttið heima um tvíleytið.",
+          "afternoon": "Þú sækir VD kl. 15:30. Hekla kemur heim úr vinnu.",
+          "evening": "Fjölskyldan er saman. Butter chicken í kvöldmat. Gott kvöld saman!"
+        },
+        "otherContext": "Hekla fer í WC í hádeginu í dag — hennar ræktardagur."
+      },
+      "hekla": {
+        "tags": ["vinna", "WC í hádegi 🏋️", "saman"],
+        "alert": null,
+        "blocks": {
+          "morning": "Þú ferð í vinnu. Sólon skutlar VD.",
+          "midday": "World Class í hádeginu! Nýttu tækifærið vel.",
+          "afternoon": "Heim úr vinnu. Sólon búinn að sækja VD.",
+          "evening": "Fjölskyldan er saman! Butter chicken í kvöldmat."
+        },
+        "otherContext": "Sólon er í skólanámi, sækir VD kl. 15:30. Fríkvöld."
+      }
+    },
+    {
+      "name": "Fimmtudagur",
+      "date": "26. mars",
+      "isoDate": "2026-03-26",
+      "dinner": "Hekla velur sjálf (S á vakt)",
+      "solon": {
+        "tags": ["námskeið 9–12", "brétti", "kvöldvakt"],
+        "alert": "Námskeið kl. 9–12. Kvöldvakt 16:00–23:00 (reynir losa sig)",
+        "blocks": {
+          "morning": "Þú skutlar VD kl. 7:30. Námskeið kl. 9:00–12:00 — ekki gleyma!",
+          "midday": "Eftir námskeiðið: brétti heima eða persónulegt verkefni ef tími gefst.",
+          "afternoon": "Sæktu VD kl. 15:30.",
+          "evening": "Kvöldvakt 16:00–23:00. Hekla er ein heima með VD."
+        },
+        "otherContext": "Hekla er í vinnu 8–16, ein heima á kvöldin."
+      },
+      "hekla": {
+        "tags": ["vinna", "ein m/VD"],
+        "alert": null,
+        "blocks": {
+          "morning": "Þú ferð í vinnu. Sólon skutlar VD og fer á námskeið kl. 9.",
+          "midday": "Vinnudagur hjá Advania.",
+          "afternoon": "Sólon sækir VD kl. 15:30 og fer á kvöldvakt kl. 16.",
+          "evening": "Þú ert ein heima með VD. Veldu þér kvöldmat. Sólon kemur heim um 23."
+        },
+        "otherContext": "Sólon á námskeið 9–12, á kvöldvakt 16–23."
+      }
+    },
+    {
+      "name": "Föstudagur",
+      "date": "27. mars",
+      "isoDate": "2026-03-27",
+      "dinner": "Hamborgari á Munaðarnesi",
+      "solon": {
+        "tags": ["persónulegt verkefni", "rækt", "Munaðarnes 🏡"],
+        "alert": "Munaðarnesferð — leggið af stað 17–18",
+        "blocks": {
+          "morning": "Þú skutlar VD kl. 7:30. Persónulegt verkefni í dag — fjármálaterminalinn.",
+          "midday": "Verkefnið áfram. Farðu í ræktina um tvíleytið (2 af 2x).",
+          "afternoon": "Sæktu VD kl. 14:00 (dagmamma lokar snemma á föstudögum). Byrjaðu að pakka fyrir Munaðarnes.",
+          "evening": "Hekla kemur heim úr vinnu. Farið saman í búð á leiðinni og leggið af stað á Munaðarnes kl. 17–18. Hamborgari í kvöldmat á staðnum!"
+        },
+        "otherContext": "Hekla er í vinnu til 16. Fjölskyldan fer á Munaðarnes um kvöldið."
+      },
+      "hekla": {
+        "tags": ["vinna", "Munaðarnes 🏡"],
+        "alert": "Munaðarnesferð — leggið af stað 17–18",
+        "blocks": {
+          "morning": "Þú ferð í vinnu. Sólon skutlar VD.",
+          "midday": "Síðasti vinnudagur fyrir Munaðarnes!",
+          "afternoon": "Sólon sækir VD kl. 14:00. Heim úr vinnu og pakkað.",
+          "evening": "Farið saman í búð á leiðinni og leggið af stað á Munaðarnes kl. 17–18. Hamborgari í kvöldmat!"
+        },
+        "otherContext": "Sólon sækir VD kl. 14, pakkar. Farið saman á Munaðarnes."
+      }
+    },
+    {
+      "name": "Laugardagur",
+      "date": "28. mars",
+      "isoDate": "2026-03-28",
+      "dinner": "Nauta Wellington",
+      "solon": {
+        "tags": ["Munaðarnes 🏡", "fjölskylda"],
+        "alert": null,
+        "blocks": {
+          "morning": "Morgunn á Munaðarnesi! Njótið morgunverðar saman.",
+          "midday": "Frí á Munaðarnesi — útivist, leikur, slappað af.",
+          "afternoon": "Njótið dagsins saman sem fjölskylda.",
+          "evening": "Nauta Wellington í kvöldmat! Rólegt kvöld á Munaðarnesi."
+        },
+        "otherContext": "Allir á Munaðarnesi. Frí frá öllu."
+      },
+      "hekla": {
+        "tags": ["Munaðarnes 🏡", "fjölskylda"],
+        "alert": null,
+        "blocks": {
+          "morning": "Morgunn á Munaðarnesi! Njótið morgunverðar saman.",
+          "midday": "Frí á Munaðarnesi — útivist, leikur, slappað af.",
+          "afternoon": "Njótið dagsins saman sem fjölskylda.",
+          "evening": "Nauta Wellington í kvöldmat! Rólegt kvöld á Munaðarnesi."
+        },
+        "otherContext": "Allir á Munaðarnesi. Frí frá öllu."
+      }
+    },
+    {
+      "name": "Sunnudagur",
+      "date": "29. mars",
+      "isoDate": "2026-03-29",
+      "dinner": "Lambahryggur með pipparsósu og brúnuðum kartöflum",
+      "solon": {
+        "tags": ["Munaðarnes 🏡", "fjölskylda"],
+        "alert": null,
+        "blocks": {
+          "morning": "Morgunn á Munaðarnesi.",
+          "midday": "Njótið síðasta dagsins á staðnum.",
+          "afternoon": "Slappað af eða útivist.",
+          "evening": "Lambahryggur með pipparsósu og brúnuðum kartöflum — veislumatur til að loka helginni! Munaðarnesferðin heldur áfram til 1. apríl."
+        },
+        "otherContext": "Allir á Munaðarnesi. Ferðin heldur áfram næstu viku."
+      },
+      "hekla": {
+        "tags": ["Munaðarnes 🏡", "fjölskylda"],
+        "alert": null,
+        "blocks": {
+          "morning": "Morgunn á Munaðarnesi.",
+          "midday": "Njótið síðasta dagsins á staðnum.",
+          "afternoon": "Slappað af eða útivist.",
+          "evening": "Lambahryggur með pipparsósu og brúnuðum kartöflum — veislumatur! Ferðin heldur áfram til 1. apríl."
+        },
+        "otherContext": "Allir á Munaðarnesi. Ferðin heldur áfram næstu viku."
+      }
+    }
+  ]
+}
