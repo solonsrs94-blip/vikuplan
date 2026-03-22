@@ -1,7 +1,7 @@
 // yfirlit.js — Overview dashboard with visual stats, trends, and AI insights
-import { state } from '../app.js';
-import { loadAiSummary, getVikuord, setVikuord, lsGet, lsSet } from '../data.js';
-import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js';
+import { state, navigate } from '../app.js?v=2';
+import { loadAiSummary, getVikuord, setVikuord, lsGet, lsSet, exportAllUserData } from '../data.js?v=2';
+import { renderHeatmapGrid, renderBarGroup, renderMoodTrend, renderProgressRing, renderSeasonWheel } from '../charts.js?v=2';
 
 const DATE_IDEAS = [
   'Farið á göngu á Úlfarsfellið',
@@ -178,10 +178,10 @@ export async function renderYfirlit(el) {
       `Það eru ${Math.floor((new Date(born.getFullYear() + 2, born.getMonth(), born.getDate()) - now) / 86400000)} dagar þar til hún verður 2 ára`,
     ];
 
-    html += `<div class="ov-card vd-card">
+    html += `<div class="ov-card vd-card" data-action="vd" style="cursor:pointer">
       <div class="vd-emoji">👶</div>
       <div class="vd-info">
-        <div class="ov-title">${lt.profiles.vd.name}</div>
+        <div class="ov-title">${lt.profiles.vd.name} <span style="font-size:12px;color:var(--text-light)">→</span></div>
         <div class="vd-age">${months} mánaða${remainDays > 0 ? ` og ${Math.round(remainDays)} daga` : ''}</div>
         <div class="vd-fun">${funFacts[0]}</div>
       </div>
@@ -211,7 +211,19 @@ export async function renderYfirlit(el) {
     ${renderVikuordHistory(ctx?.vikuord)}
   </div>`;
 
-  // 12. Random date idea
+  // 12. Personal area link
+  const personName = state.person === 'solon' ? 'Sólon' : 'Hekla';
+  html += `<div class="ov-card" data-action="personal" style="cursor:pointer">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-size:22px">📋</div>
+      <div>
+        <div class="ov-title">Mitt svæði — ${personName} <span style="font-size:12px;color:var(--text-light)">→</span></div>
+        <div class="ov-subtitle">Verkefnalisti, rækt og markmið</div>
+      </div>
+    </div>
+  </div>`;
+
+  // 13. Random date idea
   const randomIdea = DATE_IDEAS[Math.floor(Math.random() * DATE_IDEAS.length)];
   html += `<div class="ov-card date-idea-card">
     <div class="date-idea-icon">💡</div>
@@ -242,6 +254,11 @@ export async function renderYfirlit(el) {
       </div>
     </div>`;
   }
+
+  // Export all data button
+  html += `<div class="ov-card" style="text-align:center">
+    <button class="inbox-export" id="export-all-data" style="width:100%">💾 Exporta öll gögn</button>
+  </div>`;
 
   // Bottom spacer
   html += `<div style="height:24px"></div>`;
@@ -276,6 +293,10 @@ function renderVikuordHistory(vikuord) {
 function bindEvents(el) {
   const currentWeek = state.currentWeek;
 
+  // Navigation cards
+  el.querySelector('[data-action="vd"]')?.addEventListener('click', () => navigate('#vd'));
+  el.querySelector('[data-action="personal"]')?.addEventListener('click', () => navigate('#personal'));
+
   // Vikuord inputs
   const sInput = el.querySelector('#vikuord-solon');
   const hInput = el.querySelector('#vikuord-hekla');
@@ -285,6 +306,19 @@ function bindEvents(el) {
   if (hInput) {
     hInput.addEventListener('change', () => setVikuord(currentWeek, 'hekla', hInput.value));
   }
+
+  // Export all data
+  el.querySelector('#export-all-data')?.addEventListener('click', () => {
+    const data = exportAllUserData();
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `vikuplan-export-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
 
   // Date idea refresh
   const refreshBtn = el.querySelector('#date-idea-refresh');

@@ -2,14 +2,16 @@
 import {
   loadWeekIndex, loadWeek, loadLongTerm, loadContext,
   getSelectedPerson, setSelectedPerson, getInboxItems
-} from './data.js';
-import { renderDaily } from './views/daily.js';
-import { renderInbox } from './views/inbox.js';
-import { renderCheckin } from './views/checkin.js';
-import { renderTimeline } from './views/timeline.js';
-import { renderHistory } from './views/history.js';
-import { renderReflection } from './views/reflection.js';
-import { renderYfirlit } from './views/yfirlit.js';
+} from './data.js?v=2';
+import { renderDaily } from './views/daily.js?v=2';
+import { renderInbox } from './views/inbox.js?v=2';
+import { renderCheckin } from './views/checkin.js?v=2';
+import { renderTimeline } from './views/timeline.js?v=2';
+import { renderHistory } from './views/history.js?v=2';
+import { renderReflection } from './views/reflection.js?v=2';
+import { renderYfirlit } from './views/yfirlit.js?v=2';
+import { renderVd } from './views/vd.js?v=2';
+import { renderPersonal } from './views/personal.js?v=2';
 
 // Global state
 export const state = {
@@ -126,6 +128,8 @@ function route() {
     case 'history': renderHistory(appEl); break;
     case 'reflection': renderReflection(appEl, param); break;
     case 'yfirlit': renderYfirlit(appEl); break;
+    case 'vd': renderVd(appEl); break;
+    case 'personal': renderPersonal(appEl); break;
     default: renderDaily(appEl); break;
   }
 }

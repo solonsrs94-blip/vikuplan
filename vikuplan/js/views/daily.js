@@ -1,9 +1,10 @@
 // daily.js — Main daily view
-import { state, setDay, navigate } from '../app.js';
-import { getCheckin } from '../data.js';
+import { state, setDay, navigate } from '../app.js?v=2';
+import { getCheckin, getDayNotes, addDayNote, removeDayNote, toggleDayNote } from '../data.js?v=2';
 
 const ICONS = ['🌅', '☀️', '🕐', '🌙'];
 const PERIODS = ['Morgunn', 'Hádegi', 'Síðdegi', 'Kvöld'];
+const PERIOD_KEYS = ['morning', 'midday', 'afternoon', 'evening'];
 const ABBR = ['M', 'Þ', 'Mi', 'Fi', 'Fö', 'L', 'S'];
 
 export function renderDaily(el) {
@@ -110,14 +111,40 @@ export function renderDaily(el) {
 
   // Time blocks
   const parts = [view.blocks.morning, view.blocks.midday, view.blocks.afternoon, view.blocks.evening];
+  const isoDate = d.isoDate;
+  const dayNotes = getDayNotes(isoDate);
+
   html += `<div class="time-blocks">`;
   parts.forEach((text, i) => {
+    const periodKey = PERIOD_KEYS[i];
+    const periodNotes = dayNotes.filter(n => n.period === periodKey);
+
     html += `<div class="time-block">
       <div class="icon">${ICONS[i]}</div>
       <div class="content">
-        <div class="period">${PERIODS[i]}</div>
-        <div class="desc">${text}</div>
-      </div>
+        <div class="period">${PERIODS[i]} <button class="note-add-btn" data-period="${periodKey}" data-date="${isoDate}">+</button></div>
+        <div class="desc">${text}</div>`;
+
+    // Render existing notes
+    if (periodNotes.length > 0) {
+      html += `<div class="day-notes">`;
+      periodNotes.forEach(note => {
+        const personCls = note.person === 'solon' ? 'note-solon' : 'note-hekla';
+        html += `<div class="day-note ${note.done ? 'done' : ''} ${personCls}">
+          <input type="checkbox" class="note-check" data-note-id="${note.id}" data-date="${isoDate}" ${note.done ? 'checked' : ''}>
+          <span class="note-text">${escapeHtml(note.text)}</span>
+          <button class="note-delete" data-note-id="${note.id}" data-date="${isoDate}">✕</button>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    // Inline input (hidden by default)
+    html += `<div class="note-input-row hidden" data-period="${periodKey}">
+          <input type="text" class="note-input" placeholder="Bæta við..." data-period="${periodKey}" data-date="${isoDate}">
+        </div>`;
+
+    html += `</div>
     </div>`;
   });
   html += `</div>`;
@@ -166,6 +193,56 @@ export function renderDaily(el) {
   if (checkinBanner) {
     checkinBanner.addEventListener('click', () => navigate('#checkin'));
   }
+
+  // Day notes: show input on "+" click
+  el.querySelectorAll('.note-add-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const period = btn.dataset.period;
+      const row = el.querySelector(`.note-input-row[data-period="${period}"]`);
+      row.classList.toggle('hidden');
+      if (!row.classList.contains('hidden')) {
+        row.querySelector('.note-input').focus();
+      }
+    });
+  });
+
+  // Day notes: save on Enter
+  el.querySelectorAll('.note-input').forEach(input => {
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const text = input.value.trim();
+        if (!text) return;
+        addDayNote(input.dataset.date, {
+          period: input.dataset.period,
+          text,
+          person: state.person
+        });
+        renderDaily(el);
+      }
+      if (e.key === 'Escape') {
+        input.value = '';
+        input.closest('.note-input-row').classList.add('hidden');
+      }
+    });
+  });
+
+  // Day notes: toggle done
+  el.querySelectorAll('.note-check').forEach(cb => {
+    cb.addEventListener('change', () => {
+      toggleDayNote(cb.dataset.date, cb.dataset.noteId);
+      renderDaily(el);
+    });
+  });
+
+  // Day notes: delete
+  el.querySelectorAll('.note-delete').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      removeDayNote(btn.dataset.date, btn.dataset.noteId);
+      renderDaily(el);
+    });
+  });
 }
 
 function getTodayIdx() {
@@ -177,6 +254,12 @@ function getTodayIdx() {
 function shouldShowCheckin(todayIdx, checkin, person) {
   // Show from Wednesday (idx 2) to Saturday (idx 5)
   return todayIdx >= 2 && todayIdx <= 5;
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 function getRelevantInsights() {

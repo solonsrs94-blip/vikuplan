@@ -117,6 +117,185 @@ export function setVikuord(isoWeek, person, val) {
   lsSet(`vikuord_${isoWeek}`, current);
 }
 
+// Day notes
+export function getDayNotes(isoDate) {
+  return lsGet(`daynotes_${isoDate}`) || [];
+}
+
+export function addDayNote(isoDate, note) {
+  const items = getDayNotes(isoDate);
+  items.push({
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    timestamp: new Date().toISOString(),
+    done: false,
+    ...note
+  });
+  lsSet(`daynotes_${isoDate}`, items);
+  return items;
+}
+
+export function removeDayNote(isoDate, noteId) {
+  const items = getDayNotes(isoDate).filter(i => i.id !== noteId);
+  lsSet(`daynotes_${isoDate}`, items);
+  return items;
+}
+
+export function toggleDayNote(isoDate, noteId) {
+  const items = getDayNotes(isoDate);
+  const item = items.find(i => i.id === noteId);
+  if (item) item.done = !item.done;
+  lsSet(`daynotes_${isoDate}`, items);
+  return items;
+}
+
+// VD notes and goals
+export function getVdNotes() {
+  return lsGet('vd_notes') || [];
+}
+
+export function addVdNote(note) {
+  const items = getVdNotes();
+  items.unshift({
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    timestamp: new Date().toISOString(),
+    ...note
+  });
+  lsSet('vd_notes', items);
+  return items;
+}
+
+export function removeVdNote(id) {
+  const items = getVdNotes().filter(i => i.id !== id);
+  lsSet('vd_notes', items);
+  return items;
+}
+
+export function getVdGoals() {
+  return lsGet('vd_goals') || [];
+}
+
+export function addVdGoal(goal) {
+  const items = getVdGoals();
+  items.push({
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    done: false,
+    ...goal
+  });
+  lsSet('vd_goals', items);
+  return items;
+}
+
+export function toggleVdGoal(id) {
+  const items = getVdGoals();
+  const item = items.find(i => i.id === id);
+  if (item) item.done = !item.done;
+  lsSet('vd_goals', items);
+  return items;
+}
+
+export function removeVdGoal(id) {
+  const items = getVdGoals().filter(i => i.id !== id);
+  lsSet('vd_goals', items);
+  return items;
+}
+
+// Personal todos
+export function getTodos(person) {
+  return lsGet(`todos_${person}`) || [];
+}
+
+export function addTodo(person, todo) {
+  const items = getTodos(person);
+  items.push({
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    timestamp: new Date().toISOString(),
+    done: false,
+    ...todo
+  });
+  lsSet(`todos_${person}`, items);
+  return items;
+}
+
+export function toggleTodo(person, id) {
+  const items = getTodos(person);
+  const item = items.find(i => i.id === id);
+  if (item) item.done = !item.done;
+  lsSet(`todos_${person}`, items);
+  return items;
+}
+
+export function removeTodo(person, id) {
+  const items = getTodos(person).filter(i => i.id !== id);
+  lsSet(`todos_${person}`, items);
+  return items;
+}
+
+// Exercise log
+export function getExerciseLog(person) {
+  return lsGet(`exercise_${person}`) || [];
+}
+
+export function addExerciseEntry(person, entry) {
+  const items = getExerciseLog(person);
+  items.unshift({
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    date: new Date().toISOString().split('T')[0],
+    ...entry
+  });
+  lsSet(`exercise_${person}`, items);
+  return items;
+}
+
+// Master export — all user data
+export function exportAllUserData() {
+  const data = { exportedAt: new Date().toISOString() };
+
+  // Inbox
+  data.inbox = getInboxItems();
+
+  // Day notes — scan all localStorage keys
+  data.dayNotes = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith('vikuplan_daynotes_')) {
+      const date = key.replace('vikuplan_daynotes_', '');
+      data.dayNotes[date] = JSON.parse(localStorage.getItem(key));
+    }
+  }
+
+  // Check-ins
+  data.checkins = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith('vikuplan_checkin_')) {
+      const week = key.replace('vikuplan_checkin_', '');
+      data.checkins[week] = JSON.parse(localStorage.getItem(key));
+    }
+  }
+
+  // VD
+  data.vdNotes = getVdNotes();
+  data.vdGoals = getVdGoals();
+
+  // Personal todos
+  data.todos = { solon: getTodos('solon'), hekla: getTodos('hekla') };
+
+  // Exercise
+  data.exercise = { solon: getExerciseLog('solon'), hekla: getExerciseLog('hekla') };
+
+  // Vikuord
+  data.vikuord = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith('vikuplan_vikuord_')) {
+      const week = key.replace('vikuplan_vikuord_', '');
+      data.vikuord[week] = JSON.parse(localStorage.getItem(key));
+    }
+  }
+
+  return data;
+}
+
 // Person preference
 export function getSelectedPerson() {
   return lsGet('person') || 'solon';
