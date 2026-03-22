@@ -1,6 +1,6 @@
 // checkin.js — Mid-week check-in
-import { state, showToast, navigate } from '../app.js?v=12';
-import { getCheckin, saveCheckin } from '../data.js?v=12';
+import { state, showToast, navigate } from '../app.js?v=13';
+import { getCheckin, saveCheckin } from '../data.js?v=13';
 
 export function renderCheckin(el) {
   if (!state.weekData) {

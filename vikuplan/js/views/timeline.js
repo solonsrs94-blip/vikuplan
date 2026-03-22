@@ -1,5 +1,5 @@
 // timeline.js — Long-term timeline view
-import { state } from '../app.js?v=12';
+import { state } from '../app.js?v=13';
 
 const MONTHS_IS = ['janúar','febrúar','mars','apríl','maí','júní','júlí','ágúst','september','október','nóvember','desember'];
 

@@ -1,6 +1,6 @@
 // inbox.js — Quick notes / inbox view
-import { getInboxItems, addInboxItem, removeInboxItem, exportInbox } from '../data.js?v=12';
-import { state, showToast, updateNavBadge } from '../app.js?v=12';
+import { getInboxItems, addInboxItem, removeInboxItem } from '../data.js?v=13';
+import { state, showToast, updateNavBadge } from '../app.js?v=13';
 
 const CATEGORIES = [
   { id: 'observation', label: '💬 Athugasemd', placeholder: 'Hvað gerðist?' },
@@ -58,11 +58,6 @@ export function renderInbox(el) {
     });
     html += `</div>`;
 
-    // Export buttons
-    html += `<div class="inbox-export-row">
-      <button class="inbox-export" id="inbox-export">📋 Afrita á klippiborð</button>
-      <button class="inbox-export inbox-export-file" id="inbox-export-file">💾 Vista sem skrá</button>
-    </div>`;
   } else {
     html += `<div class="empty-state">
       <div class="empty-icon">📝</div>
@@ -97,33 +92,6 @@ export function renderInbox(el) {
       updateNavBadge();
       renderInbox(el);
     });
-  });
-
-  document.getElementById('inbox-export')?.addEventListener('click', () => {
-    const text = exportInbox();
-    navigator.clipboard.writeText(text).then(() => {
-      showToast('Afritað á klippiborð!');
-    }).catch(() => {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;height:60%;z-index:999;padding:16px;font-size:13px;';
-      document.body.appendChild(ta);
-      ta.select();
-      ta.addEventListener('blur', () => ta.remove());
-    });
-  });
-
-  document.getElementById('inbox-export-file')?.addEventListener('click', () => {
-    const items = getInboxItems();
-    const json = JSON.stringify(items, null, 2);
-    const blob = new Blob([json], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `inbox-export-${new Date().toISOString().slice(0, 10)}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-    showToast('Skrá vistuð!');
   });
 
   // Handle Enter key in textarea

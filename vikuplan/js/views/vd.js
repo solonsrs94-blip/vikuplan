@@ -1,7 +1,7 @@
 // vd.js — Viktoría Dís view
-import { state, navigate } from '../app.js?v=12';
-import { getVdNotes, addVdNote, removeVdNote, getVdGoals, addVdGoal, toggleVdGoal, removeVdGoal, lsGet, lsSet } from '../data.js?v=12';
-import { showToast } from '../app.js?v=12';
+import { state, navigate } from '../app.js?v=13';
+import { getVdNotes, addVdNote, removeVdNote, getVdGoals, addVdGoal, toggleVdGoal, removeVdGoal, lsGet, lsSet } from '../data.js?v=13';
+import { showToast } from '../app.js?v=13';
 
 const NOTE_CATS = [
   { id: 'observation', label: '💬 Athugasemd' },
