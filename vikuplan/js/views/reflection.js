@@ -1,6 +1,6 @@
-// reflection.js — View a specific week's reflection
-import { state, navigate } from '../app.js?v=8';
-import { loadReflection, loadWeek } from '../data.js?v=8';
+// reflection.js — View a specific week's narrative + reflection
+import { state, navigate } from '../app.js?v=9';
+import { loadReflection, loadWeek } from '../data.js?v=9';
 
 export async function renderReflection(el, isoWeek) {
   if (!isoWeek) {
@@ -13,100 +13,126 @@ export async function renderReflection(el, isoWeek) {
     ? state.weekData
     : await loadWeek(isoWeek);
 
-  let html = `<div class="header">
-    <h1>Vikuyfirferð</h1>
-    <div class="sub">${week ? week.dateRange : isoWeek}</div>
-  </div>`;
+  let html = '';
 
   // Back button
-  html += `<button style="background:none;border:none;color:var(--accent);font-size:14px;font-weight:600;cursor:pointer;padding:8px 0;font-family:'DM Sans',sans-serif" id="back-btn">← Til baka</button>`;
+  html += `<div style="margin-bottom:8px"><button class="back-btn" id="back-btn">← Til baka</button></div>`;
+
+  // Header
+  html += `<div class="header">
+    <h1>Vika ${isoWeek.split('-W')[1]}</h1>
+    <div class="sub">${week ? week.dateRange : isoWeek}</div>
+  </div>`;
 
   if (!reflection) {
     html += `<div class="empty-state" style="padding-top:24px">
       <div class="empty-icon">📝</div>
-      <div class="empty-text">Engin vikuyfirferð fyrir þessa viku ennþá.<br>Hún verður skrifuð á næsta sunnudagskvöldi.</div>
+      <div class="empty-text">Engin greining fyrir þessa viku ennþá.<br>Hún verður skrifuð á næsta sunnudegi.</div>
     </div>`;
 
     // Show intentions if we have week data
     if (week) {
-      html += `<div class="section-title" style="margin-top:24px">Ásetningar vikunnar</div>`;
-      html += `<div class="reflection-section">
-        <div class="rs-content">
-          <strong>Sólon:</strong> ${week.intentions.solon}<br><br>
-          <strong>Hekla:</strong> ${week.intentions.hekla}<br><br>
-          <em>Saman:</em> ${week.intentions.saman}
+      html += `<div class="ov-card" style="margin-top:16px">
+        <div class="ov-title">Ásetningar vikunnar</div>
+        <div style="margin-top:8px;font-size:14px;line-height:1.6">
+          <div style="margin-bottom:6px"><strong style="color:#2563EB">Sólon:</strong> ${week.intentions.solon}</div>
+          <div style="margin-bottom:6px"><strong style="color:#059669">Hekla:</strong> ${week.intentions.hekla}</div>
+          <div><em>Saman:</em> ${week.intentions.saman}</div>
         </div>
       </div>`;
     }
   } else {
-    // Mood
+    // === NARRATIVE ===
+    if (reflection.narrative) {
+      html += `<div class="narrative-section">
+        <div class="narrative-text">${formatNarrative(reflection.narrative)}</div>
+      </div>`;
+    }
+
+    // === HIGHLIGHTS ===
+    if (reflection.highlights?.length) {
+      html += `<div class="ov-card" style="margin-top:16px">
+        <div class="ov-title">✨ Highlights</div>
+        <ul class="narrative-list">
+          ${reflection.highlights.map(h => `<li>${h}</li>`).join('')}
+        </ul>
+      </div>`;
+    }
+
+    // === PATTERNS / OBSERVATIONS ===
+    if (reflection.observations?.length) {
+      html += `<div class="ov-card" style="margin-top:12px">
+        <div class="ov-title">🔍 Athuganir</div>
+        <ul class="narrative-list">
+          ${reflection.observations.map(o => `<li>${o}</li>`).join('')}
+        </ul>
+      </div>`;
+    }
+
+    // === SUGGESTIONS ===
+    if (reflection.suggestions?.length) {
+      html += `<div class="ov-card" style="margin-top:12px">
+        <div class="ov-title">💡 Tillögur fyrir næstu viku</div>
+        <ul class="narrative-list">
+          ${reflection.suggestions.map(s => `<li>${s}</li>`).join('')}
+        </ul>
+      </div>`;
+    }
+
+    // === MOOD ===
     if (reflection.mood) {
-      html += `<div class="reflection-section">
-        <div class="rs-title">Líðan</div>
-        <div style="display:flex;gap:24px">
-          ${reflection.mood.solon ? `<div>
-            <div style="font-size:28px;font-weight:700;color:#2563EB">${reflection.mood.solon.overall}/10</div>
+      html += `<div class="ov-card" style="margin-top:12px">
+        <div class="ov-title">Líðan</div>
+        <div style="display:flex;gap:24px;margin-top:8px">
+          ${reflection.mood.solon != null ? `<div>
+            <div style="font-size:28px;font-weight:700;color:#2563EB">${reflection.mood.solon}/10</div>
             <div style="font-size:12px;color:var(--text-mid)">Sólon</div>
           </div>` : ''}
-          ${reflection.mood.hekla ? `<div>
-            <div style="font-size:28px;font-weight:700;color:#059669">${reflection.mood.hekla.overall}/10</div>
+          ${reflection.mood.hekla != null ? `<div>
+            <div style="font-size:28px;font-weight:700;color:#059669">${reflection.mood.hekla}/10</div>
             <div style="font-size:12px;color:var(--text-mid)">Hekla</div>
           </div>` : ''}
-          ${reflection.coupleScore ? `<div>
-            <div style="font-size:28px;font-weight:700;color:var(--text)">${reflection.coupleScore}/10</div>
+          ${reflection.mood.couple != null ? `<div>
+            <div style="font-size:28px;font-weight:700;color:var(--text)">${reflection.mood.couple}/10</div>
             <div style="font-size:12px;color:var(--text-mid)">Saman</div>
           </div>` : ''}
         </div>
       </div>`;
     }
 
-    // Gratitude
-    if (reflection.gratitude) {
-      html += `<div class="reflection-section">
-        <div class="rs-title">Þakkir</div>
-        <div class="rs-content">
-          ${reflection.gratitude.solon ? `<div style="margin-bottom:8px"><strong style="color:#2563EB">Sólon:</strong> ${reflection.gratitude.solon}</div>` : ''}
-          ${reflection.gratitude.hekla ? `<div><strong style="color:#059669">Hekla:</strong> ${reflection.gratitude.hekla}</div>` : ''}
+    // === INTENTIONS REVIEW ===
+    if (week) {
+      html += `<div class="ov-card" style="margin-top:12px">
+        <div class="ov-title">Ásetningar vs. raunveruleiki</div>
+        <div style="margin-top:8px;font-size:13px;line-height:1.6">
+          <div style="margin-bottom:8px">
+            <strong style="color:#2563EB">Sólon ætlaði:</strong> ${week.intentions.solon}
+            ${reflection.intentionReview?.solon ? `<div style="margin-top:4px;color:var(--text-mid);font-style:italic">${reflection.intentionReview.solon}</div>` : ''}
+          </div>
+          <div style="margin-bottom:8px">
+            <strong style="color:#059669">Hekla ætlaði:</strong> ${week.intentions.hekla}
+            ${reflection.intentionReview?.hekla ? `<div style="margin-top:4px;color:var(--text-mid);font-style:italic">${reflection.intentionReview.hekla}</div>` : ''}
+          </div>
+          <div>
+            <strong>Saman:</strong> ${week.intentions.saman}
+            ${reflection.intentionReview?.saman ? `<div style="margin-top:4px;color:var(--text-mid);font-style:italic">${reflection.intentionReview.saman}</div>` : ''}
+          </div>
         </div>
-      </div>`;
-    }
-
-    // What worked
-    if (reflection.whatWorked?.length) {
-      html += `<div class="reflection-section">
-        <div class="rs-title">Hvað gekk vel</div>
-        <ul class="rs-list">${reflection.whatWorked.map(w => `<li>${w}</li>`).join('')}</ul>
-      </div>`;
-    }
-
-    // What didn't work
-    if (reflection.whatDidnt?.length) {
-      html += `<div class="reflection-section">
-        <div class="rs-title">Hvað gekk ekki</div>
-        <ul class="rs-list">${reflection.whatDidnt.map(w => `<li>${w}</li>`).join('')}</ul>
-      </div>`;
-    }
-
-    // Summary
-    if (reflection.summary) {
-      html += `<div class="reflection-section">
-        <div class="rs-title">Samantekt</div>
-        <div class="rs-content">${reflection.summary}</div>
-      </div>`;
-    }
-
-    // Notes from week
-    if (reflection.notesFromWeek?.length) {
-      html += `<div class="reflection-section">
-        <div class="rs-title">Athugasemdir vikunnar</div>
-        <ul class="rs-list">${reflection.notesFromWeek.map(n =>
-          `<li>${n.text}</li>`
-        ).join('')}</ul>
       </div>`;
     }
   }
 
+  // Bottom spacer
+  html += `<div style="height:24px"></div>`;
+
   el.innerHTML = html;
 
   document.getElementById('back-btn')?.addEventListener('click', () => navigate('#history'));
+}
+
+function formatNarrative(text) {
+  // Split into paragraphs and wrap
+  return text.split('\n\n').map(p =>
+    `<p style="margin:0 0 14px 0">${p.trim()}</p>`
+  ).join('');
 }

@@ -1,6 +1,6 @@
 // history.js — Weekly history browser + mood trends
-import { state, navigate } from '../app.js?v=8';
-import { loadWeek, loadReflection, loadAiSummary } from '../data.js?v=8';
+import { state, navigate } from '../app.js?v=9';
+import { loadWeek, loadReflection, loadAiSummary } from '../data.js?v=9';
 
 export async function renderHistory(el) {
   const weekIndex = [...state.weekIndex].reverse();
@@ -57,7 +57,7 @@ export async function renderHistory(el) {
           ${moodS ? `<span class="hw-mood-item">Sólon: <strong>${moodS}/10</strong></span>` : ''}
           ${moodH ? `<span class="hw-mood-item">Hekla: <strong>${moodH}/10</strong></span>` : ''}
         </div>` : ''}
-        ${reflection ? '<div style="font-size:11px;color:var(--success);margin-top:6px">✓ Vikuyfirferð lokið</div>' : ''}
+        ${reflection?.narrative ? '<div style="font-size:11px;color:var(--accent);margin-top:6px;font-weight:600">📖 Lesa vikugreiningu →</div>' : reflection ? '<div style="font-size:11px;color:var(--success);margin-top:6px">✓ Vikuyfirferð lokið</div>' : ''}
       </div>`;
     }
     html += `</div>`;

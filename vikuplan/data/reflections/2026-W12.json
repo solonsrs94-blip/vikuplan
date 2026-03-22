@@ -1,0 +1,31 @@
+{
+  "isoWeek": "2026-W12",
+  "createdAt": "2026-03-22T14:00:00",
+  "narrative": "Fyrsta vikan skipulögð — og hún var þung. Þetta var Vika A hjá Sóloni sem þýddi 39 klukkustundir í vinnu ofan á nám, samtals um 68 klukkustundir af álagi. Samt tókst honum að halda ræktinni gangandi þrisvar sinnum yfir vikuna, sem var flott. Hann vildi hitta vini en það féll niður — mynstur sem við þurfum að fylgjast með.\n\nHekla var ein með Viktoríu um 30 klukkustundir yfir helgina á meðan Sólon var á vöktum. Þetta er mikið álag á hana og var ein af stærstu áskorunum vikunnar. Hún nefndi engan sérstakan ásetning þegar hún var spurð í viðtalinu — eitthvað sem gæti þýtt að hún finnur ekki rými til að hugsa um eigin markmið á þungum vikum.\n\nSaman nefndu þau bæði að þau eyða of mörgum kvöldum í að glápa á sjónvarpið í stað þess að gera eitthvað saman. Þetta var fyrsta merkið um eitthvað sem þau vildu breyta, og varð grunnurinn að göngutúrshugmyndinni sem fór í plan fyrir viku 13.",
+  "highlights": [
+    "Fyrsta vikuplanið búið til — skipulagið hefst!",
+    "Sólon hélt ræktinni gangandi 3x þrátt fyrir mikið álag",
+    "Bæði komu með hugmynd um að hætta sjónvarpsglápinu"
+  ],
+  "observations": [
+    "68 klst heildarálag hjá Sóloni á Viku A er í hæsta lagi. Þarf að skoða hvort hægt sé að létta á næstu A-viku.",
+    "Hekla fær ekkert eigið rými á A-vikum þegar hún er ein með VD um helgar.",
+    "Sólon vill hitta vini en skipuleggur það ekki — hugmyndin er til en framkvæmdin vantar.",
+    "Hekla sagði 'enginn sérstakur ásetningur' sem gæti bent til þess að hún þurfi öðruvísi spurningar til að finna eigin markmið."
+  ],
+  "suggestions": [
+    "Skipuleggja eitt saman-kvöld á viku sem er EKKI sjónvarp",
+    "Sólon bókar vinafund á fimmtudegi eða föstudegi á léttum vikum",
+    "Skoða hvort hægt sé að stytta helgarvaktir Sólons til að létta á Heklu"
+  ],
+  "mood": {
+    "solon": null,
+    "hekla": null,
+    "couple": null
+  },
+  "intentionReview": {
+    "solon": "Náði ræktinni 3x. Félagslíf féll niður. Nám gekk vel en þungt.",
+    "hekla": "Sagði engan ásetning — vikan fór í vinnu og VD. Erfitt að meta framgang.",
+    "saman": "Göngutúr varð ekki en parið greindi vandamálið (sjónvarpsglápið) sem er framfaraskref."
+  }
+}

@@ -1124,3 +1124,36 @@ body {
   color: #fff;
   border-color: var(--accent);
 }
+
+/* Narrative (weekly reflection) */
+.narrative-section {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  margin-top: 12px;
+}
+.narrative-text {
+  font-family: 'Newsreader', serif;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text);
+}
+.narrative-text p:last-child {
+  margin-bottom: 0;
+}
+.narrative-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+.narrative-list li {
+  padding: 6px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-mid);
+}
+.narrative-list li:last-child {
+  border-bottom: none;
+}
